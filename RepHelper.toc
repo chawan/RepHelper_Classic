@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 11300
 ## Title: RepHelper
 ## Version: @project-version@
 ## Author: Chawan, Marabon
