@@ -25,7 +25,7 @@
 		<Layers>							
 			<Layer level="OVERLAY">						
 				<!-->Expand/Collaps button<-->					
-				<Texture name="$parentTexture" file="Interface\Addons\RepHelper\Textures\UI-MinusButton-UP-Green.tga">					
+				<Texture name="$parentTexture" file="Interface\Addons\RepHelper_Classic\Textures\UI-MinusButton-UP-Green.tga">					
 					<Size x="16" y="16"/><Anchors><Anchor point="LEFT"><Offset x="3" y="0"/></Anchor></Anchors>				
 				</Texture>					
 				<!-->Label text [X]<-->					

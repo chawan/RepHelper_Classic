@@ -90,8 +90,6 @@ RPH_IsHorde = false
 RPH_IsHeroic=false
 -- Guild Tracking
 RPH_GuildName = nil
--- Garrison Trading post level 3
-RPH_HasTradingPost = false
 RPH_OnLoadingScreen = false
 
 ------------------------
@@ -181,8 +179,6 @@ function RPH_OnEvent(self, event, ...)
 		RPH_Main:RegisterEvent("UPDATE_TRADESKILL_RECAST")
 		RPH_Main:RegisterEvent("QUEST_COMPLETE")
 		RPH_Main:RegisterEvent("QUEST_WATCH_UPDATE")
-		--RPH_Main:RegisterEvent("GARRISON_UPDATE")
-
 		-- new chat hook system
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_FACTION_CHANGE", RPH_ChatFilter)
 		ChatFrame_AddMessageEventFilter("COMBAT_TEXT_UPDATE", RPH_ChatFilter)
@@ -356,7 +352,7 @@ function RPH:Init()
 	RPH_OrderByStandingCheckBoxText:SetText(RPH_TXT.orderByStanding)
 
 	---	RPH_OnShowOptionFrame()
-	RPH:ExtractSkills()
+	--RPH:ExtractSkills()
 
 	local _, race = UnitRace("player")
 	local faction, locFaction = UnitFactionGroup("player")
@@ -885,10 +881,6 @@ function RPH:InitItemName(fiitem,amt)
 	end
 
 	if not item_name then
-		item_name=GetCurrencyInfo(fiitem)
-	end
-
-	if not item_name then
 		item_name = fiitem
 	end
 	return item_name
@@ -896,8 +888,8 @@ end
 
 function RPH:Quest_Names(questIndex)
 
-		RPH_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
-		RPH_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
+		--RPH_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
+		--RPH_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
 
 		local quest = RPH_HiddenQuestTooltipTextLeft1:GetText()
 		RPH_HiddenQuestTooltip:Hide()
@@ -950,27 +942,9 @@ end
 function RPH:InitFactor(RPH_IsHuman,faction)
 --- Thanks Gwalkmaur for the heads up
 	--RPH:Print("Faction: "..faction);
-	local draenorFactions = {"Council of Exarchs", 
-							"Frostwolf Orcs", 
-							"Wrynn's Vanguard", 
-							"Vol'jin's Spear", 
-							"Sha'tari Defense",  
-							"Laughing Skull Orcs", 
-							"Hand of the Prophet", 
-							"Vol'jin's Headhunters", 
-							"Arakkoa Outcasts", 
-							"Order of the Awakened", 
-							"The Saberstalkers", 
-							"Steamwheedle Preservation Society"}
-
 	local factor=1.0
 	-- Race check
 		if RPH_IsHuman then factor = factor + 0.1 end
-
-	-- WoD Faction trading post bonus
-	if RPH:has_value(draenorFactions, faction) and RPH_HasTradingPost then 
-		factor = factor + 0.2; 
-	end
 
 	-- bonus repgain check
 		local numFactions = GetNumFactions();
@@ -1708,12 +1682,12 @@ function RPH_UpdateList_Update()
 				end
 				if (F_UL_ei.hasList) then
 					if (F_UL_ei.listShown) then
-						entryTexture:SetTexture("Interface\\Addons\\RepHelper\\Textures\\UI-MinusButton-Up"..postfix..".tga")
+						entryTexture:SetTexture("Interface\\Addons\\RepHelper_Classic\\Textures\\UI-MinusButton-Up"..postfix..".tga")
 					else
-						entryTexture:SetTexture("Interface\\Addons\\RepHelper\\Textures\\UI-PlusButton-Up"..postfix..".tga")
+						entryTexture:SetTexture("Interface\\Addons\\RepHelper_Classic\\Textures\\UI-PlusButton-Up"..postfix..".tga")
 					end
 				else
-					entryTexture:SetTexture("Interface\\Addons\\RepHelper\\Textures\\UI-EmptyButton-Up"..postfix..".tga")
+					entryTexture:SetTexture("Interface\\Addons\\RepHelper_Classic\\Textures\\UI-EmptyButton-Up"..postfix..".tga")
 				end
 				if (F_UL_ei.canSuppress) then
 					entryTexture:Show()
@@ -2423,7 +2397,7 @@ function RPH:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
 		QuestItem = {}
 		QuestItem.name = "James"
 	end
-	if (GetItemCount(item, true)==0 and select(2, GetCurrencyInfo(item)) == 0) then
+	if (GetItemCount(item, true)==0) then
 		-- not enough of this item for quest -> set to 0
 		currentQuestTimesBag = 0
 	else
@@ -3179,29 +3153,6 @@ function RPH:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 end
 -- ^ rfl R_D_F
 
-function RPH_Friend_Detail(factionID, standingID,factionRow)
-	local colorIndex, factionStandingtext, isCappedFriendship;
-	local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID);
-	if (friendID ~= nil) then
-		if ( nextFriendThreshold ) then
-			barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
-		else	-- max rank, make it look like a full bar
-			barMin, barMax, barValue = 0, 1, 1;
-			isCappedFriendship = true;
-		end
-		colorIndex = 5;	-- always color friendships green
-		factionStandingtext = friendTextLevel;
-		factionRow.friendshipID = friendID;
-		isFriend = true;
-	else
-		factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
-		factionRow.friendshipID = nil;
-		colorIndex = standingID;
-		isFriend = false;
-	end
-	return colorIndex, isCappedFriendship, factionStandingtext, isFriend
-end
-
 -----------------------------------
 -- _16_ Listing by standing
 -----------------------------------
@@ -3405,55 +3356,6 @@ end
 ------------------------------------------------------------
 function RPH_OptionsDefault()
 	-- nothing to do
-end
-
-function RPH_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
-	local _, friendRep, friendMaxRep, _, _, _, _, _, _ = GetFriendshipReputation(factionID);
-	local bodyguards = {1738, 1740, 1733, 1741, 1737, 1736, 1739} 
-
-	-- WoD bodyguards are capped at 20k reputation but GetFriendshipReputation still returns 42k reputation as maximum so we need to check for that and set max to 20k
-	if tContains(bodyguards, factionID) then
-		friendMaxRep = 20000
-	end
-
-	return friendMaxRep - friendRep;
-end
-
-function RPH_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
-	-- Add localization
-	local RPH_BFFLabels = {}
-	RPH_BFFLabels[0] = {}
-	RPH_BFFLabels[0][8400] = "Acquaintance"
-	RPH_BFFLabels[0][16800] = "Buddy"
-	RPH_BFFLabels[0][25200] = "Friend"
-	RPH_BFFLabels[0][33600] = "Good Friend"
-	RPH_BFFLabels[0][42000] = "Best Friend"
-
-	-- Corbyn
-	RPH_BFFLabels[2100] = {}
-	RPH_BFFLabels[2100][8400] = "Curiosity"
-	RPH_BFFLabels[2100][16800] = "Non-Threat"
-	RPH_BFFLabels[2100][25200] = "Friend"
-	RPH_BFFLabels[2100][33600] = "Helpful Friend"
-	RPH_BFFLabels[2100][42000] = "Best Friend"
-
-	-- Nat Pagle
-	RPH_BFFLabels[1358] = {}
-	RPH_BFFLabels[1358][8400] = "Pal"
-	RPH_BFFLabels[1358][16800] = "Buddy"
-	RPH_BFFLabels[1358][25200] = "Friend"
-	RPH_BFFLabels[1358][33600] = "Good Friend"
-	RPH_BFFLabels[1358][42000] = "Best Friend"
-
-	if RPH_BFFLabels[factionID] ~= nil then
-		return RPH_BFFLabels[factionID][nextFriendThreshold]
-	else 
-		if RPH_BFFLabels[0][nextFriendThreshold] ~=nil then
-			return RPH_BFFLabels[0][nextFriendThreshold]
-		else
-			return ""
-		end
-	end
 end
 
 --------------------------
