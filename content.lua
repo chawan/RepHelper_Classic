@@ -1,4 +1,4 @@
-function RPH_InitEnFactionGains(guildName, guildCapBase)
+function RPH_InitEnFactionGains()
 	local zone = {}
 	-- Kalimdor
 	zone.Mulgore = 7

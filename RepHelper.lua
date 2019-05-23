@@ -88,8 +88,6 @@ RPH_IsHuman = false
 RPH_IsAlliance = false
 RPH_IsHorde = false
 RPH_IsHeroic=false
--- Guild Tracking
-RPH_GuildName = nil
 RPH_OnLoadingScreen = false
 
 ------------------------
@@ -311,11 +309,9 @@ function RPH:Init()
 	changed = changed + RPH:InitVariable("ShowMissing", true)
 	changed = changed + RPH:InitVariable("ExtendDetails", true)
 	changed = changed + RPH:InitVariable("WriteChatMessage", true)
-	changed = changed + RPH:InitVariable("NoGuildGain", true)
 	changed = changed + RPH:InitVariable("ShowPreviewRep", true)
 	changed = changed + RPH:InitVariable("SwitchFactionBar", true)
 	changed = changed + RPH:InitVariable("SilentSwitch", true)
-	changed = changed + RPH:InitVariable("NoGuildSwitch", true)
 	if (changed > 0) then
 		StaticPopupDialogs["RPH_CONFIG_CHANGED"] = {
 			text = RPH_TXT.configQuestion,
@@ -344,10 +340,8 @@ function RPH:Init()
 	RPH_EnableMissingBoxText:SetText(RPH_TXT.showMissing)
 	RPH_ExtendDetailsBoxText:SetText(RPH_TXT.extendDetails)
 	RPH_GainToChatBoxText:SetText(RPH_TXT.gainToChat)
-	RPH_NoGuildGainBoxText:SetText(RPH_TXT.noGuildGain)
 	RPH_ShowPreviewRepBoxText:SetText(RPH_TXT.showPreviewRep)
 	RPH_SwitchFactionBarBoxText:SetText(RPH_TXT.switchFactionBar)
-	RPH_NoGuildSwitchBoxText:SetText(RPH_TXT.noGuildSwitch)
 	RPH_SilentSwitchBoxText:SetText(RPH_TXT.silentSwitch)
 	RPH_OrderByStandingCheckBoxText:SetText(RPH_TXT.orderByStanding)
 
@@ -359,10 +353,6 @@ function RPH:Init()
 	local class, enClass = UnitClass("player")
 	RPH_Player = UnitName("player")
 	RPH_Realm = GetRealmName()
-
-	if (IsInGuild()) then
-		if (RPH_GuildName == nil or RPH_GuildName == "") then RPH_GuildName = GetGuildInfo("player") end
-	end
 
 	if (race and faction and locFaction and RPH_Player and RPH_Realm) then
 		if (race == "Human") then
@@ -381,10 +371,10 @@ function RPH:Init()
 
 		-- Initialize Faction information
 		local locale = GetLocale()
-		RPH:InitFactionMap(locale, RPH_GuildName)
+		RPH:InitFactionMap(locale)
 		-- Changed by Bagdad for easy reputation content moderation
 		RPH_FactionGain = {}
-		RPH_InitEnFactionGains(RPH_GuildName)
+		RPH_InitEnFactionGains()
 		RPH:DumpReputationChangesToChat(true)
 
 		RPH_InitComplete = true
@@ -431,7 +421,6 @@ function RPH_SlashHandler(msg)
 						FD_SH.ExtendDetails = true
 					elseif (wordsLower[1]=="chat") then
 						FD_SH.WriteChatMessage = true
-						FD_SH.NoGuildGain = false
 					elseif (wordsLower[1]=="preview") then
 						FD_SH.ShowPreviewRep = true
 					elseif (wordsLower[1]=="bar") then
@@ -447,10 +436,8 @@ function RPH_SlashHandler(msg)
 						FD_SH.ShowMissing = true
 						FD_SH.ExtendDetails = true
 						FD_SH.WriteChatMessage = true
-						FD_SH.NoGuildGain = false
 						FD_SH.ShowPreviewRep = true
 						FD_SH.SwitchFactionBar = true
-						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
 					else
 						RPH:PrintSlash(RPH_TXT.command,msgLower)
@@ -484,12 +471,10 @@ function RPH_SlashHandler(msg)
 						FD_SH.ExtendDetails = false
 					elseif (wordsLower[1]=="chat") then
 						FD_SH.WriteChatMessage = false
-						FD_SH.NoGuildGain = false
 					elseif (wordsLower[1]=="preview") then
 						FD_SH.ShowPreviewRep = false
 					elseif (wordsLower[1]=="bar") then
 						FD_SH.SwitchFactionBar = false
-						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
 					elseif (wordsLower[1]=="all") then
 						FD_SH.ShowMobs = false
@@ -500,10 +485,8 @@ function RPH_SlashHandler(msg)
 						FD_SH.ShowMissing = false
 						FD_SH.ExtendDetails = false
 						FD_SH.WriteChatMessage = false
-						FD_SH.NoGuildGain = false
 						FD_SH.ShowPreviewRep = false
 						FD_SH.SwitchFactionBar = false
-						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
 					else
 						RPH:PrintSlash(RPH_TXT.command,msgLower)
@@ -537,12 +520,10 @@ function RPH_SlashHandler(msg)
 						FD_SH.ExtendDetails = not FD_SH.ExtendDetails
 					elseif (wordsLower[1]=="chat") then
 						FD_SH.WriteChatMessage = not FD_SH.WriteChatMessage
-						FD_SH.NoGuildGain = false
 					elseif (wordsLower[1]=="preview") then
 						FD_SH.ShowPreviewRep = not FD_SH.ShowPreviewRep
 					elseif (wordsLower[1]=="preview") then
 						FD_SH.SwitchFactionBar = not FD_SH.SwitchFactionBar
-						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
 					elseif (wordsLower[1]=="all") then
 						FD_SH.ShowMobs = not FD_SH.ShowMobs
@@ -553,10 +534,8 @@ function RPH_SlashHandler(msg)
 						FD_SH.ShowMissing = not FD_SH.ShowMissing
 						FD_SH.ExtendDetails = not FD_SH.ExtendDetails
 						FD_SH.WriteChatMessage = not FD_SH.WriteChatMessage
-						FD_SH.NoGuildGain = false
 						FD_SH.ShowPreviewRep = not FD_SH.ShowPreviewRep
 						FD_SH.SwitchFactionBar = not FD_SH.SwitchFactionBar
-						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
 					else
 						RPH:PrintSlash(RPH_TXT.command,msgLower)
@@ -790,10 +769,8 @@ function RPH:Status()
 	RPH:Print("   "..RPH_TXT.statDetails..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.ExtendDetails).."|r", true)
 	RPH:Print("   "..RPH_TXT.statChat..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.WriteChatMessage).."|r", true)
 
-	RPH:Print("   "..RPH_TXT.statNoGuildChat..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.NoGuildGain).."|r", true)
 	RPH:Print("   "..RPH_TXT.statPreview..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.ShowPreviewRep).."|r", true)
 	RPH:Print("   "..RPH_TXT.statSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.SwitchFactionBar).."|r", true)
-	RPH:Print("   "..RPH_TXT.statNoGuildSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.NoGuildSwitch).."|r", true)
 	RPH:Print("   "..RPH_TXT.statSilentSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.SilentSwitch).."|r", true)
 end
 
@@ -970,22 +947,16 @@ function RPH:InitFactor(RPH_IsHuman,faction)
 
 end
 
-function RPH:InitFaction(guildName,faction)
-	if faction=="guildName" or faction==RPH_GuildName then
-	--- f_ifa	RPH:Printtest(faction,guildName,"1")
-		RPH_faction = faction
-	else
-		RPH_faction = GetFactionInfoByID(faction)
-	end
+function RPH:InitFaction(faction)
+
+	RPH_faction = GetFactionInfoByID(faction)
+
 	return RPH_faction
 end
 
-function RPH:InitFactionMap(locale, guildName)
+function RPH:InitFactionMap(locale)
 	RPH_FactionMapping = {}
 	RPH_InitEnFactions()
-	if (guildName) then
-		RPH_AddMapping(guildName, guildName)
-	end
 end
 
 function RPH_AddMapping(english, localised)
@@ -994,7 +965,7 @@ function RPH_AddMapping(english, localised)
 		RPH_FactionMapping = {}
 	end
 
-	if (RPH:InitFaction(RPH_GuildName,localised)) then
+	if (RPH:InitFaction(localised)) then
 		RPH_FactionMapping[string.lower(RPH_faction)] = string.lower(english)
 	end
 end
@@ -1084,7 +1055,7 @@ function RPH_AddMob(faction, from, to, name, rep, zone, limit)
 	if (from > to) then return end								--]]--
 	if RPH:Content(faction, from, to, name, rep) ~=1 then return end
 
-	faction = string.lower(RPH:InitFaction(RPH_GuildName,faction))
+	faction = string.lower(RPH:InitFaction(faction))
 	rep = rep * RPH:InitFactor(RPH_IsHuman,RPH_faction)
 	--- f_amo	RPH:Printtest(faction,RPH_faction,"mob")
 
@@ -1135,7 +1106,7 @@ function RPH_AddQuest(faction, from, to, name, rep, itemList, limitType)
 	if (from > to) then return end								--]]--
 	if RPH:Content(faction, from, to, name, rep) ~=1 then return end
 
-	faction = string.lower(RPH:InitFaction(RPH_GuildName,faction))
+	faction = string.lower(RPH:InitFaction(faction))
 	rep = rep * RPH:InitFactor(RPH_IsHuman,RPH_faction)
 	
 	--- f_aq	RPH:Printtest(faction,RPH_faction,"quest")
@@ -1198,7 +1169,7 @@ function RPH_AddInstance(faction, from, to, name, rep, heroic)
 	if (from > to) then return end								--]]--
 	if RPH:Content(faction, from, to, name, rep) ~=1 then return end
 
-	faction = string.lower(RPH:InitFaction(RPH_GuildName,faction))
+	faction = string.lower(RPH:InitFaction(faction))
 	rep = rep * RPH:InitFactor(RPH_IsHuman,RPH_faction)
 	
 	--- f_ain	RPH:Printtest(faction,RPH_faction,"inst")
@@ -1255,7 +1226,7 @@ function RPH_AddItems(faction, from, to, rep, itemList, alternativeItemList)
 	if (from > to) then return end								--]]--
 	if RPH:Content(faction, from, to, itemList, rep) ~=1 then return end
 
-	faction = string.lower(RPH:InitFaction(RPH_GuildName,faction))
+	faction = string.lower(RPH:InitFaction(faction))
 	rep = rep * RPH:InitFactor(RPH_IsHuman,RPH_faction)
 	
 	--- f_ait	RPH:Printtest(faction,RPH_faction,"item")
@@ -1321,7 +1292,7 @@ function RPH_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag)
 	if (from > to) then return end								--]]--
 	if RPH:Content(faction, from, to, name, rep) ~=1 then return end
 
-	faction = string.lower(RPH:InitFaction(RPH_GuildName,faction))
+	faction = string.lower(RPH:InitFaction(faction))
 	rep = rep * RPH:InitFactor(RPH_IsHuman,RPH_faction)
 	--- f_ag	RPH:Printtest(faction,RPH_faction,"gen") 
 	local tipString = ""
@@ -2631,38 +2602,34 @@ function RPH:DumpReputationChangesToChat(initOnly)
                 end
                 if RPH_StoredRep[name] and not initOnly then
                     if (RPH_Data.WriteChatMessage) then
-                        if (not RPH_Data.NoGuildGain or name ~= RPH_GuildName) then
-                            local sign=""
-                            if ((barValue-RPH_StoredRep[name].origRep)>0) then
-                                sign = "+"
-                            end
-                            if (barValue > RPH_StoredRep[name].rep) then
-                                -- increased rep
-                                RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.stats, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
-                                --RPH:Print(RPH_GetFriendFactionStandingLabel(factionID, nextFriendThreshold))
-                                --RPH:Print(_G["FACTION_STANDING_LABEL"..standingID + 1])
-                            elseif (barValue < RPH_StoredRep[name].rep) then
-                                RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.stats, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
-                                -- decreased rep
-                            end
-                            if (RPH_StoredRep[name].standingID ~= standingID) then
-                                if friendID == nil then
-                                    RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
-                                else
-                                    RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, friendTextLevel, name))
-                                end
+                        local sign=""
+                        if ((barValue-RPH_StoredRep[name].origRep)>0) then
+                            sign = "+"
+                        end
+                        if (barValue > RPH_StoredRep[name].rep) then
+                            -- increased rep
+                            RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.stats, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
+                            --RPH:Print(RPH_GetFriendFactionStandingLabel(factionID, nextFriendThreshold))
+                            --RPH:Print(_G["FACTION_STANDING_LABEL"..standingID + 1])
+                        elseif (barValue < RPH_StoredRep[name].rep) then
+                            RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.stats, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
+                            -- decreased rep
+                        end
+                        if (RPH_StoredRep[name].standingID ~= standingID) then
+                            if friendID == nil then
+                                RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
+                            else
+                                RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, friendTextLevel, name))
                             end
                         end
                     end
                     if (RPH_Data.SwitchFactionBar) then
-                        if (not RPH_Data.NoGuildSwitch or name ~= RPH_GuildName) then
-                            if (barValue > RPH_StoredRep[name].rep) then
-                                --RPH:Print("Marking faction ["..tostring(name).."] index ["..tostring(factionIndex).."] for rep watch bar")
-                                watchIndex = factionIndex
-                                watchName = name
-                                --elseif (barValue ~= RPH_StoredRep[name].rep) then
-                                --RPH:Print("Faction ["..tostring(name).."] lost rep")
-                            end
+                        if (barValue > RPH_StoredRep[name].rep) then
+                            --RPH:Print("Marking faction ["..tostring(name).."] index ["..tostring(factionIndex).."] for rep watch bar")
+                            watchIndex = factionIndex
+                            watchName = name
+                            --elseif (barValue ~= RPH_StoredRep[name].rep) then
+                            --RPH:Print("Faction ["..tostring(name).."] lost rep")
                         end
                     end
                 else
@@ -3287,10 +3254,8 @@ function RPH_OnShowOptionFrame()
 	RPH_EnableMissingBox:SetChecked(RPH_Data.ShowMissing)
 	RPH_ExtendDetailsBox:SetChecked(RPH_Data.ExtendDetails)
 	RPH_GainToChatBox:SetChecked(RPH_Data.WriteChatMessage)
-	RPH_NoGuildGainBox:SetChecked(RPH_Data.NoGuildGain)
 	RPH_ShowPreviewRepBox:SetChecked(RPH_Data.ShowPreviewRep)
 	RPH_SwitchFactionBarBox:SetChecked(RPH_Data.SwitchFactionBar)
-	RPH_NoGuildSwitchBox:SetChecked(RPH_Data.NoGuildSwitch)
 	RPH_SilentSwitchBox:SetChecked(RPH_Data.SilentSwitch)
 	RPH_OrderByStandingCheckBox:SetChecked(RPH_Data.SortByStanding)
 end
@@ -3309,10 +3274,8 @@ function RPH_OnLoadOptions(panel)
 	RPH_OptionEnableMissingCBText:SetText(RPH_TXT.showMissing)
 	RPH_OptionExtendDetailsCBText:SetText(RPH_TXT.extendDetails)
 	RPH_OptionGainToChatCBText:SetText(RPH_TXT.gainToChat)
-	RPH_OptionNoGuildGainCBText:SetText(RPH_TXT.noGuildGain)
 	RPH_OptionShowPreviewRepCBText:SetText(RPH_TXT.showPreviewRep)
 	RPH_OptionSwitchFactionBarCBText:SetText(RPH_TXT.switchFactionBar)
-	RPH_OptionNoGuildSwitchCBText:SetText(RPH_TXT.noGuildSwitch)
 	RPH_OptionSilentSwitchCBText:SetText(RPH_TXT.silentSwitch)
 end
 
@@ -3323,10 +3286,8 @@ function RPH_OnShowOptions(self)
 		RPH_OptionEnableMissingCB:SetChecked(RPH_Data.ShowMissing)
 		RPH_OptionExtendDetailsCB:SetChecked(RPH_Data.ExtendDetails)
 		RPH_OptionGainToChatCB:SetChecked(RPH_Data.WriteChatMessage)
-		RPH_OptionNoGuildGainCB:SetChecked(RPH_Data.NoGuildGain)
 		RPH_OptionShowPreviewRepCB:SetChecked(RPH_Data.ShowPreviewRep)
 		RPH_OptionSwitchFactionBarCB:SetChecked(RPH_Data.SwitchFactionBar)
-		RPH_OptionNoGuildSwitchCB:SetChecked(RPH_Data.NoGuildSwitch)
 		RPH_OptionSilentSwitchCB:SetChecked(RPH_Data.SilentSwitch)
 	end
 end
@@ -3337,10 +3298,8 @@ function RPH_OptionsOk()
 		RPH_Data.ShowMissing = RPH_OptionEnableMissingCB:GetChecked()
 		RPH_Data.ExtendDetails = RPH_OptionExtendDetailsCB:GetChecked()
 		RPH_Data.WriteChatMessage = RPH_OptionGainToChatCB:GetChecked()
-		RPH_Data.NoGuildGain = RPH_OptionNoGuildGainCB:GetChecked()
 		RPH_Data.ShowPreviewRep = RPH_OptionShowPreviewRepCB:GetChecked()
 		RPH_Data.SwitchFactionBar = RPH_OptionSwitchFactionBarCB:GetChecked()
-		RPH_Data.NoGuildSwitch = RPH_OptionNoGuildSwitchCB:GetChecked()
 		RPH_Data.SilentSwitch = RPH_OptionSilentSwitchCB:GetChecked()
 		ReputationFrame_Update()
 	end
