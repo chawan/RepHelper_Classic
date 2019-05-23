@@ -429,12 +429,6 @@ function RPH:Init()
 	end
 end
 
-function RPH:ToggleDarkmoonFaireBuff()
-	RPH_FactionGain = {}
-	RPH_InitEnFactionGains(RPH_GuildName)
-	RPH_ReputationFrame_Update()
-end
-
 ------------------------
 -- _05_ Slash Handler --
 ------------------------
@@ -1010,10 +1004,6 @@ function RPH:InitFactor(RPH_IsHuman,faction)
 	-- WoD Faction trading post bonus
 	if RPH:has_value(draenorFactions, faction) and RPH_HasTradingPost then 
 		factor = factor + 0.2; 
-	end
-	-- Darkmoon Faire reputation buff setting
-	if RPH_Data.ShowDarkmoonFaire then
-		factor = factor + 0.1
 	end
 
 	-- bonus repgain check
@@ -1665,14 +1655,12 @@ function RPH_UpdateList_Update()
 	RPH_ShowMobsButton:SetChecked(RPH_Data.ShowMobs)
 	RPH_ShowInstancesButton:SetChecked(RPH_Data.ShowInstances)
 	RPH_ShowGeneralButton:SetChecked(RPH_Data.ShowGeneral)
-	RPH_ShowDarkmoonFaireButton:SetChecked(RPH_Data.ShowDarkmoonFaire)
 
 	RPH_ShowQuestButtonText:SetText(RPH_TXT.showQuests)
 	RPH_ShowItemsButtonText:SetText(RPH_TXT.showItems)
 	RPH_ShowMobsButtonText:SetText(RPH_TXT.showMobs)
 	RPH_ShowInstancesButtonText:SetText(RPH_TXT.showInstances)
 	RPH_ShowGeneralButtonText:SetText(RPH_TXT.showGeneral)
-	RPH_ShowDarkmoonFaireButtonText:SetText(RPH_TXT.darkmoonFaireBuff)
 
 	RPH_ShowAllButton:SetText(RPH_TXT.showAll)
 	RPH_ShowNoneButton:SetText(RPH_TXT.showNone)
