@@ -45,10 +45,7 @@ RPH_LIMIT_TYPE_Blac = 7
 RPH_LIMIT_TYPE_Tail = 8
 RPH_LIMIT_TYPE_Leat = 9
 RPH_LIMIT_TYPE_Ench = 10
-RPH_LIMIT_TYPE_Jewe = 11
-RPH_LIMIT_TYPE_Incr = 12
 RPH_LIMIT_TYPE_Aid = 13
-RPH_LIMIT_TYPE_Arch = 14
 RPH_LIMIT_TYPE_Cook = 15
 RPH_LIMIT_TYPE_Fish = 16
 
@@ -77,9 +74,7 @@ RPH_Entries = {}
 RPH_Herb = false
 RPH_Skin = false
 RPH_Mine = false
-RPH_Jewel = false
 RPH_Cook = false
-RPH_Arch = false
 RPH_Fish = false
 RPH_Aid = false
 RPH_Black = false
@@ -87,11 +82,9 @@ RPH_Tailor = false
 RPH_Leath = false
 RPH_Enchan = false
 RPH_Engin = false
-RPH_Incrip = false
 RPH_Alche = false
 --- Race/Side/Difficulty
 RPH_IsHuman = false
-RPH_IsDeathKnight = false
 RPH_IsAlliance = false
 RPH_IsHorde = false
 RPH_IsHeroic=false
@@ -157,7 +150,6 @@ function RPH_OnEvent(self, event, ...)
 	end
 
 	local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...
-	print("ARG1;", arg1)
 	
 	if (event == "ADDON_LOADED") and (arg1 == RPH_NAME) then
 		RPH:Print("ADDON_LOADED EVENT")
@@ -301,7 +293,6 @@ end
 -------------------------------
 function RPH:Init()
 	if RPH_InitComplete then return end
-	RPH:Print("RPH_InitStages ["..tostring(RPH_InitStages).."]")
 	if (RPH_InitStages ~= 15) then return end
 
 	local version = GetAddOnMetadata("RepHelper", "Version");
@@ -329,7 +320,6 @@ function RPH:Init()
 	changed = changed + RPH:InitVariable("SwitchFactionBar", true)
 	changed = changed + RPH:InitVariable("SilentSwitch", true)
 	changed = changed + RPH:InitVariable("NoGuildSwitch", true)
-	changed = changed + RPH:InitVariable("ShowParagonBar", true)
 	if (changed > 0) then
 		StaticPopupDialogs["RPH_CONFIG_CHANGED"] = {
 			text = RPH_TXT.configQuestion,
@@ -364,7 +354,6 @@ function RPH:Init()
 	RPH_NoGuildSwitchBoxText:SetText(RPH_TXT.noGuildSwitch)
 	RPH_SilentSwitchBoxText:SetText(RPH_TXT.silentSwitch)
 	RPH_OrderByStandingCheckBoxText:SetText(RPH_TXT.orderByStanding)
-	RPH_EnableParagonBarBoxText:SetText(RPH_TXT.EnableParagonBar)
 
 	---	RPH_OnShowOptionFrame()
 	RPH:ExtractSkills()
@@ -382,10 +371,6 @@ function RPH:Init()
 	if (race and faction and locFaction and RPH_Player and RPH_Realm) then
 		if (race == "Human") then
 			RPH_IsHuman = true
-		end
-
-		if enClass and enClass == "DEATHKNIGHT" then
-			RPH_IsDeathKnight = true
 		end
 
 		if (faction == FACTION_ALLIANCE) or (locFaction == FACTION_ALLIANCE) then
@@ -457,8 +442,6 @@ function RPH_SlashHandler(msg)
 						FD_SH.SwitchFactionBar = true
 						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
-					elseif (wordsLower[1]=="paragon") then
-						FD_SH.ShowParagonBar = true
 					elseif (wordsLower[1]=="all") then
 						FD_SH.ShowMobs = true
 						FD_SH.ShowQuests = true
@@ -512,8 +495,6 @@ function RPH_SlashHandler(msg)
 						FD_SH.SwitchFactionBar = false
 						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
-					elseif (wordsLower[1]=="paragon") then
-						FD_SH.ShowParagonBar = false
 					elseif (wordsLower[1]=="all") then
 						FD_SH.ShowMobs = false
 						FD_SH.ShowQuests = false
@@ -567,8 +548,6 @@ function RPH_SlashHandler(msg)
 						FD_SH.SwitchFactionBar = not FD_SH.SwitchFactionBar
 						FD_SH.NoGuildSwitch = false
 						FD_SH.SilentSwitch = false
-					elseif (wordsLower[1]=="paragon") then
-						FD_SH.ShowParagonBar = not FD_SH.ShowParagonBar;
 					elseif (wordsLower[1]=="all") then
 						FD_SH.ShowMobs = not FD_SH.ShowMobs
 						FD_SH.ShowQuests = not FD_SH.ShowQuests
@@ -777,9 +756,9 @@ function RPH:Help() --xxx
 	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph enable { mobs | quests | instances | items | all }", true)
 	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph disable { mobs | quests | instances | items | all }", true)
 	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph toggle { mobs | quests | instances | items | all }", true)
-	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph enable { missing | details | chat | paragon }", true)
-	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph disable { missing | details | chat | paragon}", true)
-	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph toggle { missing | details | chat | paragon}" , true)
+	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph enable { missing | details | chat }", true)
+	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph disable { missing | details | chat}", true)
+	RPH:Print(RPH_Help_COLOUR..RPH_TXT.usage..":|r /rph toggle { missing | details | chat}" , true)
 end
 ------------------------------------------------------------
 function RPH:About()
@@ -820,7 +799,6 @@ function RPH:Status()
 	RPH:Print("   "..RPH_TXT.statSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.SwitchFactionBar).."|r", true)
 	RPH:Print("   "..RPH_TXT.statNoGuildSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.NoGuildSwitch).."|r", true)
 	RPH:Print("   "..RPH_TXT.statSilentSwitch..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.SilentSwitch).."|r", true)
-	RPH:Print("   "..RPH_TXT.EnableParagonBar..": "..RPH_Help_COLOUR..RPH:BoolToEnabled(RPH_Data.ShowParagonBar).."|r", true)
 end
 
 -----------------------------------
@@ -1451,7 +1429,6 @@ end
 --- v rfl 1
 function RPH_ReputationFrame_Update() --rfl
 	if (RPH_OnLoadingScreen == false) then
-		--ReputationFrame.paragonFramesPool:ReleaseAll();
 		-- v rfl 1.1
 			local numFactions
 			if RPH_Data.SortByStanding then
@@ -3268,6 +3245,7 @@ end
 -- _17_ extracting Skill information
 ------------------------
 function RPH:ExtractSkills() --- ggg
+	-- TODO Fix profession stuff since GetProfessions is removed
 	RPH_Herb = false
 	RPH_Skin = false
 	RPH_Mine = false
@@ -3275,12 +3253,9 @@ function RPH:ExtractSkills() --- ggg
 	RPH_Black = false
 	RPH_Enchan = false
 	RPH_Engin = false
-	RPH_Jewel = false
-	RPH_Incrip = false
 	RPH_Leath = false
 	RPH_Tailor = false
 	RPH_Aid = false
-	RPH_Arch = false
 	RPH_Cook = false
 	RPH_Fish = false
 
@@ -3294,10 +3269,6 @@ function RPH:ExtractSkills() --- ggg
 	if (prof2) then
 		name, _, _, _, _, _, skillLine = GetProfessionInfo(prof2);
 		if name then professions[2] = name end
-	end
-	if (archaeology) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(archaeology);
-		if name then professions[3] = name end
 	end
 	if (fishing) then
 		name, _, _, _, _, _, skillLine = GetProfessionInfo(fishing);
@@ -3327,18 +3298,12 @@ function RPH:ExtractSkills() --- ggg
 			RPH_Enchan = true
 		elseif (skillName == RPH_TXT.skillEngi) then
 			RPH_Engin = true
-		elseif (skillName == RPH_TXT.skillIncrip) then
-			RPH_Incrip = true
-		elseif (skillName == RPH_TXT.skillJewel) then
-			RPH_Jewel = true
 		elseif (skillName == RPH_TXT.skillLeath) then
 			RPH_Leath = true
 		elseif (skillName == RPH_TXT.skillTail) then
 			RPH_Tailor = true
 		elseif (skillName == RPH_TXT.skillAid) then
 			RPH_Aid = true
-		elseif (skillName == RPH_TXT.skillArch) then
-			RPH_Arch = true
 		elseif (skillName == RPH_TXT.skillCook) then
 			RPH_Cook = true
 		elseif (skillName == RPH_TXT.skillFish) then
@@ -3377,7 +3342,6 @@ function RPH_OnShowOptionFrame()
 	RPH_NoGuildSwitchBox:SetChecked(RPH_Data.NoGuildSwitch)
 	RPH_SilentSwitchBox:SetChecked(RPH_Data.SilentSwitch)
 	RPH_OrderByStandingCheckBox:SetChecked(RPH_Data.SortByStanding)
-	RPH_EnableParagonBarBox:SetChecked(RPH_Data.ShowParagonBar)
 end
 
 --------------------------
@@ -3399,7 +3363,6 @@ function RPH_OnLoadOptions(panel)
 	RPH_OptionSwitchFactionBarCBText:SetText(RPH_TXT.switchFactionBar)
 	RPH_OptionNoGuildSwitchCBText:SetText(RPH_TXT.noGuildSwitch)
 	RPH_OptionSilentSwitchCBText:SetText(RPH_TXT.silentSwitch)
-	RPH_OptionEnableParagonBarCBText:SetText(RPH_TXT.EnableParagonBar)
 end
 
 ------------------------------------------------------------
@@ -3414,7 +3377,6 @@ function RPH_OnShowOptions(self)
 		RPH_OptionSwitchFactionBarCB:SetChecked(RPH_Data.SwitchFactionBar)
 		RPH_OptionNoGuildSwitchCB:SetChecked(RPH_Data.NoGuildSwitch)
 		RPH_OptionSilentSwitchCB:SetChecked(RPH_Data.SilentSwitch)
-		RPH_OptionEnableParagonBarCB:SetChecked(RPH_Data.ShowParagonBar)
 	end
 end
 
@@ -3429,7 +3391,6 @@ function RPH_OptionsOk()
 		RPH_Data.SwitchFactionBar = RPH_OptionSwitchFactionBarCB:GetChecked()
 		RPH_Data.NoGuildSwitch = RPH_OptionNoGuildSwitchCB:GetChecked()
 		RPH_Data.SilentSwitch = RPH_OptionSilentSwitchCB:GetChecked()
-		RPH_Data.ShowParagonBar = RPH_OptionEnableParagonBarCB:GetChecked()
 		ReputationFrame_Update()
 	end
 	RPH_OptionsShown = nil

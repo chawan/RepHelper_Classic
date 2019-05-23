@@ -1181,43 +1181,7 @@
 						GameTooltip:Hide();			
 					</OnLeave>				
 				</Scripts>					
-			</CheckButton>
-
-			<CheckButton name="RPH_EnableParagonBarBox" inherits="OptionsCheckButtonTemplate">						
-				<Size x="20" y="20"/>					
-				<Anchors>			
-					<Anchor point="TOPLEFT" relativeTo="RPH_NoGuildSwitchBox" relativePoint="BOTTOMLEFT">				
-						<Offset x="-20" y="0"/>			
-					</Anchor>	
-				</Anchors>					
-				<HitRectInsets>					
-					<AbsInset left="0" right="-240" top="0" bottom="0"/>				
-				</HitRectInsets>					
-				<Layers>					
-					<Layer level="ARTWORK">				
-						<FontString name="$parentText" inherits="GameFontNormalSmall">			
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>		
-						</FontString>			
-					</Layer>				
-				</Layers>					
-				<Scripts>					
-					<OnClick>				
-						RPH_Data.ShowParagonBar = self:GetChecked()			
-						if ( RPH_Data.ShowParagonBar ) then			
-							PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);		
-						else			
-							PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);		
-						end			
-						ReputationFrame_Update()			
-					</OnClick>				
-					<OnEnter>				
-						RPH_ShowHelpToolTip(self, self:GetName())			
-					</OnEnter>				
-					<OnLeave>				
-						GameTooltip:Hide();			
-					</OnLeave>				
-				</Scripts>					
-			</CheckButton>							
+			</CheckButton>					
 		</Frames>							
 	</Frame>								
 									
