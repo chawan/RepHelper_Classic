@@ -3517,6 +3517,7 @@ function RPH:SortByStanding(i,factionIndex,factionBar,factionHeader,factionCheck
 
 	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(OBS_fi_i);
 	local origBarValue = barValue
+	local toExalted
 
 	if (OBS_fi.header) then
 		if (OBS_fi_i == 8) then
@@ -3552,6 +3553,11 @@ function RPH:SortByStanding(i,factionIndex,factionBar,factionHeader,factionCheck
 		barMax = barMax - barMin
 		barValue = barValue - barMin
 		barMin = 0
+
+		
+		if (standingID < 8) then
+			toExalted = RPH_ToExalted[standingID] + barMax - barValue
+		end
 
 		factionBar.index = OBS_fi_i
 		factionBar.standingText = factionStandingText
@@ -3626,6 +3632,7 @@ function RPH:OriginalRepOrder(i,factionIndex,factionBar,factionHeader,factionChe
 	-- get the info for this Faction
 	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex);
 	local origBarValue = barValue
+	local toExalted
 
 	if (isHeader) then
 		factionHeader.Text:SetText(name)
@@ -3655,6 +3662,10 @@ function RPH:OriginalRepOrder(i,factionIndex,factionBar,factionHeader,factionChe
 		barMax = barMax - barMin
 		barValue = barValue - barMin
 		barMin = 0
+
+		if (standingID < 8) then
+			toExalted = RPH_ToExalted[standingID] + barMax - barValue
+		end
 
 		factionBar.index = factionIndex
 		factionBar.standingText = factionStandingText
