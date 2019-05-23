@@ -17,7 +17,7 @@ RPH_ToExalted[7] = 0;	-- working on Revered -> Exalted, so no base offset
 RPH_ToExalted[8] = 0;	-- already at Exalted -> no offset
 
 -- Addon constants
-RPH_NAME = "RepHelper"
+RPH_NAME = "RepHelper_Classic"
 RPH_VNMBR = 6020012	-- Number code for this version
 local addonName, vars = ...
 local L = vars.L
@@ -157,7 +157,10 @@ function RPH_OnEvent(self, event, ...)
 	end
 
 	local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...
+	print("ARG1;", arg1)
+	
 	if (event == "ADDON_LOADED") and (arg1 == RPH_NAME) then
+		RPH:Print("ADDON_LOADED EVENT")
 		RPH_Main:UnregisterEvent("ADDON_LOADED")
 		RPH_InitStages = RPH_InitStages + 1
 		RPH:Init()
@@ -241,22 +244,7 @@ function RPH_OnEvent(self, event, ...)
 			RPH:BuildUpdateList()
 			RPH_UpdateList_Update()
 		end
-
-	elseif (event == "GARRISON_UPDATE") then
-		-- Get garrison buildings to check for trading post
-		local garrisonBuildings = C_Garrison.GetBuildings(LE_GARRISON_TYPE_6_0)
-
-		for i, building in pairs(garrisonBuildings) do
-			if building["buildingID"] == 145 then
-				RPH_HasTradingPost = true
-			end
-		end
-		RPH_InitStages = RPH_InitStages + 5
-		RPH:Init()
-		RPH_Main:UnregisterEvent("GARRISON_UPDATE")
 	end
-
-
 end
 
 -------------------------------
@@ -313,8 +301,8 @@ end
 -------------------------------
 function RPH:Init()
 	if RPH_InitComplete then return end
-	--RPH:Print("RPH_InitStages ["..tostring(RPH_InitStages).."]")
-	if (RPH_InitStages ~= 20) then return end
+	RPH:Print("RPH_InitStages ["..tostring(RPH_InitStages).."]")
+	if (RPH_InitStages ~= 15) then return end
 
 	local version = GetAddOnMetadata("RepHelper", "Version");
 	if (version == nil) then
