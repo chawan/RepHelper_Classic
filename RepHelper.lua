@@ -2616,13 +2616,15 @@ function RPH:DumpReputationChangesToChat(initOnly)
                             -- decreased rep
                         end
                         if (RPH_StoredRep[name].standingID ~= standingID) then
-                            if friendID == nil then
-                                RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
-                            else
-                                RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, friendTextLevel, name))
-                            end
+                            RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
                         end
-                    end
+					else
+						if (barValue > RPH_StoredRep[name].rep) then
+							RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED, name, barValue-RPH_StoredRep[name].rep))
+						elseif (barValue < RPH_StoredRep[name].rep) then
+							RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED, name, RPH_StoredRep[name].rep-barValue))
+						end
+					end
                     if (RPH_Data.SwitchFactionBar) then
                         if (barValue > RPH_StoredRep[name].rep) then
                             --RPH:Print("Marking faction ["..tostring(name).."] index ["..tostring(factionIndex).."] for rep watch bar")
