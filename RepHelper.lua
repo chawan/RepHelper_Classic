@@ -3570,6 +3570,14 @@ function RPH:SortByStanding(i,factionIndex,factionBar,factionHeader,factionCheck
 		factionBar:Show()
 		factionHeader:Hide()
 
+		if (RPH_Data.ShowMissing) then
+			if (barMax - barValue ~= 0) then
+				factionStanding:SetText(factionStandingText .. " ("..barMax - barValue..")")
+				factionBar.standingText = factionStandingText .. " ("..barMax - barValue..")"
+				factionBar.tooltip = nil
+			end
+		end
+
 		if (hasRep) or (not isHeader) then
 			factionBar.hasRep = true
 		else
@@ -3677,6 +3685,14 @@ function RPH:OriginalRepOrder(i,factionIndex,factionBar,factionHeader,factionChe
 		factionBar:SetID(factionIndex)
 		factionBar:Show()
 		factionHeader:Hide()
+
+		if (RPH_Data.ShowMissing) then
+			if (barMax - barValue ~= 0) then
+				factionStanding:SetText(factionStandingText .. " ("..barMax - barValue..")")
+				factionBar.standingText = factionStandingText .. " ("..barMax - barValue..")"
+				factionBar.tooltip = nil
+			end
+		end
 
 		if (hasRep) or (not isHeader) then
 			factionBar.hasRep = true
