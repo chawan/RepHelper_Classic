@@ -176,20 +176,17 @@ function RPH_OnEvent(self, event, ...)
 		RPH:Init()
 		RPH_Main:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		RPH_Main:RegisterEvent("UPDATE_FACTION") --rfl
-		RPH_Main:RegisterEvent("LFG_BONUS_FACTION_ID_UPDATED") --rfl
 		-- to keep item list up to date
 		RPH_Main:RegisterEvent("BAG_UPDATE")
 		RPH_Main:RegisterEvent("BANKFRAME_OPENED")
 		RPH_Main:RegisterEvent("BANKFRAME_CLOSED")
-		-- to keep dungeon Difficulty up to date
-		RPH_Main:RegisterEvent("PLAYER_DIFFICULTY_CHANGED")
 		-- to keep list of known skills up to date
 		RPH_Main:RegisterEvent("CHAT_MSG_SKILL")
 		RPH_Main:RegisterEvent("SKILL_LINES_CHANGED")
 		RPH_Main:RegisterEvent("UPDATE_TRADESKILL_RECAST")
 		RPH_Main:RegisterEvent("QUEST_COMPLETE")
 		RPH_Main:RegisterEvent("QUEST_WATCH_UPDATE")
-		RPH_Main:RegisterEvent("GARRISON_UPDATE")
+		--RPH_Main:RegisterEvent("GARRISON_UPDATE")
 
 		-- new chat hook system
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_FACTION_CHANGE", RPH_ChatFilter)
@@ -1476,7 +1473,7 @@ end
 --- v rfl 1
 function RPH_ReputationFrame_Update() --rfl
 	if (RPH_OnLoadingScreen == false) then
-		ReputationFrame.paragonFramesPool:ReleaseAll();
+		--ReputationFrame.paragonFramesPool:ReleaseAll();
 		-- v rfl 1.1
 			local numFactions
 			if RPH_Data.SortByStanding then
@@ -1501,30 +1498,33 @@ function RPH_ReputationFrame_Update() --rfl
 			end
 		-- ^ rfl 1.3
 			local gender = UnitSex("player");
-			local lfgBonusFactionID = GetLFGBonusFactionID();
+			--local lfgBonusFactionID = GetLFGBonusFactionID();
 		
 			local i;
 			for i=1, NUM_FACTIONS_DISPLAYED, 1 do
-				local factionIndex = factionOffset + i;
-				local factionRow = _G["ReputationBar"..i];
-				local factionBar = _G["ReputationBar"..i.."ReputationBar"];
-				local factionTitle = _G["ReputationBar"..i.."FactionName"];
-				local factionButton = _G["ReputationBar"..i.."ExpandOrCollapseButton"];
-				local factionStanding = _G["ReputationBar"..i.."ReputationBarFactionStanding"];
-				local factionBackground = _G["ReputationBar"..i.."Background"];
+				local factionIndex = factionOffset + i
+				local factionBar = _G["ReputationBar"..i]
+				local factionHeader = _G["ReputationHeader"..i]
+				local factionCheck = _G["ReputationBar"..i.."Check"]
+				local factionName = _G["ReputationBar"..i.."FactionName"]
+				local factionStanding = _G["ReputationBar"..i.."FactionStanding"]
+				local factionAtWarIndicator = _G["ReputationBar"..i.."AtWarCheck"]
+				local factionRightBarTexture = _G["ReputationBar"..i.."ReputationBarRight"]
 		-- v rfl 1.4
-				local factionBarPreview = _G["RPH_StatusBar"..i];
+				--local factionBarPreview = _G["RPH_StatusBar"..i];
+				local factionBarPreview = nil
 		-- ^ rfl 1.4
 				if ( factionIndex <= numFactions ) then
 		-- v rfl _9_ rep Main window
 					if RPH_Data.SortByStanding then
-						RPH:SortByStanding(i,factionIndex,factionRow,factionBar,factionBarPreview,factionTitle,factionButton,factionStanding,factionBackground,lfgBonusFactionID)
+						RPH:SortByStanding(i,factionIndex,factionBar,factionHeader,factionCheck,factionName,factionStanding, factionAtWarIndicator, factionRightBarTexture)
 					else
-						RPH:OriginalRepOrder(i,factionIndex,factionRow,factionBar,factionBarPreview,factionTitle,factionButton,factionStanding,factionBackground,lfgBonusFactionID)
+						RPH:OriginalRepOrder(i,factionIndex,factionBar,factionHeader,factionCheck,factionName,factionStanding, factionAtWarIndicator, factionRightBarTexture)
 					end
 		-- ^ rfl _9_ Rep Main Window
 				else
-					factionRow:Hide();
+					factionHeader:Hide()
+					factionBar:Hide();
 				end
 			end
 			if ( GetSelectedFaction() == 0 ) then
@@ -1561,7 +1561,7 @@ function RPH_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep)
 	local factionRowName = factionRow:GetName()
 	local factionBar = _G[factionRowName.."ReputationBar"];
 	local factionTitle = _G[factionRowName.."FactionName"];
-	local factionButton = _G[factionRowName.."ExpandOrCollapseButton"];
+	local factionButton = _G[factionRowName.."ReputationHeader"];
 	local factionStanding = _G[factionRowName.."ReputationBarFactionStanding"];
 	local factionBackground = _G[factionRowName.."Background"];
 	local factionLeftTexture = _G[factionRowName.."ReputationBarLeftTexture"];
@@ -1903,7 +1903,6 @@ function RPH:BuildUpdateList() --xxx
 	end
 
 	local factionIndex = GetSelectedFaction()
-	--local faction, description, standingId, barMin, barMax, barValue = GetFactionInfo(factionIndex)
 	local faction, description, standingId, barMin, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(factionIndex)
 
 	if (faction) then
@@ -1913,18 +1912,6 @@ function RPH:BuildUpdateList() --xxx
 		if (RPH_FactionMapping[faction]) then
 			faction = RPH_FactionMapping[faction]
 		end
-
-		if(factionID and C_Reputation.IsFactionParagon(factionID)) then
-			local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-			barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
-		end
-
-		local friendID, _, _, _, _, _, _, _, _ = GetFriendshipReputation(factionID);
-
-		if friendID ~= nil and barMax == 43000 then
-			barMax = 42000
-		end
-
 		-- Normalize Values
 		local normMax = barMax - barMin
 		local normCurrent = barValue - barMin
@@ -2708,15 +2695,7 @@ function RPH:DumpReputationChangesToChat(initOnly)
         watchedIndex = 0
         watchName = nil
         for factionIndex=1, numFactions, 1 do
-            --name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched = GetFactionInfo(factionIndex)
             name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
-
-            if(factionID and C_Reputation.IsFactionParagon(factionID)) then
-                local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID);
-                barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
-            end
-
-            friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
 
             --if (not isHeader) then
             if (not isHeader or hasRep) then
@@ -3063,11 +3042,6 @@ function RPH:StandingSort()
 	for i=1,numFactions do
 		local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus= GetFactionInfo(i);
 
-		if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID);
-			barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9;
-		end
-
 		--if (not isHeader) then only list factions, not Faction groups headers
 		if (not isHeader or hasRep) then
 			if not standings[standingID] then
@@ -3174,28 +3148,16 @@ function RPH_ReputationDetailFrame_IsShown(faction,flag,flag2,i)
 -- ^ rfl _16_ 2
 end
 -- ^ R_D_F_IS v R_D_F
-function RPH:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
+function RPH:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext)
 	local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, factionID, _, _ = GetFactionInfo(faction);
-	local friendInfo
-	local friendID, friendRep, friendMaxRep, friendName, friendText, friendTextLevel, nextFriendThreshold
-
-	if isFriend then
-		friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
-	end
-
 	local gender = UnitSex("player");
 	RPH:BuildUpdateList()
 
 	RPH_ReputationDetailFactionName:SetText(name);
 	RPH_ReputationDetailFactionDescription:SetText(description);
 
-	if isParagon then
-		RPH_ReputationDetailStandingName:SetText("Paragon")
-	elseif isFriend then
-		RPH_ReputationDetailStandingName:SetText(friendTextLevel)
-	else
-		RPH_ReputationDetailStandingName:SetText(factionStandingtext)
-	end
+	RPH_ReputationDetailStandingName:SetText(factionStandingtext)
+	
 	local color = FACTION_BAR_COLORS[colorID]
 	RPH_ReputationDetailStandingName:SetTextColor(color.r, color.g, color.b)
 
@@ -3219,44 +3181,23 @@ function RPH:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 		RPH_ReputationDetailStandingGainedValue:SetText("")
 	end
 
-	if isFriend then
-		if isCappedFriendship ~= true then
-			color = FACTION_BAR_COLORS[8]
-			RPH_ReputationDetailStandingNextValue:SetText("(--> "..RPH_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
-			RPH_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
-		else
-			RPH_ReputationDetailStandingNextValue:SetText("")
-		end
+	if (standingID <8) then
+		color = FACTION_BAR_COLORS[standingID+1]
+		--RPH_ReputationDetailStandingNext:SetText(RPH_TXT.nextLevel)
+		RPH_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID+1, gender)..")")
+		RPH_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
 	else
-		if (standingID <8) then
-			color = FACTION_BAR_COLORS[standingID+1]
-			--RPH_ReputationDetailStandingNext:SetText(RPH_TXT.nextLevel)
-			RPH_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID+1, gender)..")")
-			RPH_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
-		else
-			--RPH_ReputationDetailStandingNext:SetText("")
-			RPH_ReputationDetailStandingNextValue:SetText("")
-		end
+		--RPH_ReputationDetailStandingNext:SetText("")
+		RPH_ReputationDetailStandingNextValue:SetText("")
 	end
 
-	if isFriend then
-		if (isCappedFriendship ~= true) then
-			-- Add to localization file sometime
-			RPH_ReputationDetailStandingToExaltedHeader:SetText("Reputation to max")
-			RPH_ReputationDetailStandingToExaltedValue:SetText(toBFF)
-		else
-			RPH_ReputationDetailStandingToExaltedHeader:SetText("")
-			RPH_ReputationDetailStandingToExaltedValue:SetText("")
-		end
+	if (standingID <7) then
+		-- Add to localization file sometime
+		RPH_ReputationDetailStandingToExaltedHeader:SetText(RPH_TXT.toExalted)
+		RPH_ReputationDetailStandingToExaltedValue:SetText(toExalted)
 	else
-		if (standingID <7) then
-			-- Add to localization file sometime
-			RPH_ReputationDetailStandingToExaltedHeader:SetText(RPH_TXT.toExalted)
-			RPH_ReputationDetailStandingToExaltedValue:SetText(toExalted)
-		else
-			RPH_ReputationDetailStandingToExaltedHeader:SetText("")
-			RPH_ReputationDetailStandingToExaltedValue:SetText("")
-		end
+		RPH_ReputationDetailStandingToExaltedHeader:SetText("")
+		RPH_ReputationDetailStandingToExaltedValue:SetText("")
 	end
 
 	if ( atWarWith ) then
@@ -3581,403 +3522,216 @@ end
 --------------------------
 -- _20_ rep Main window
 --------------------------
-function RPH:SortByStanding(i,factionIndex,factionRow,factionBar,factionBarPreview,factionTitle,factionButton,factionStanding,factionBackground, lfgBonusFactionID)
--- v rfl SBS set 2 start
+function RPH:SortByStanding(i,factionIndex,factionBar,factionHeader,factionCheck,factionName,factionStanding,factionAtWarIndicator,factionRightBarTexture)
 
 	local OBS_fi = RPH_Entries[factionIndex]
 	local OBS_fi_i = OBS_fi.i
 
+	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(OBS_fi_i);
+	local origBarValue = barValue
+
 	if (OBS_fi.header) then
-		RPH_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep);
-		factionRow.LFGBonusRepButton:SetShown(false);
-		-- display the standingID as Header
-		if (OBS_fi_i == 9) then
-			factionTitle:SetText("Paragon".." ("..tostring(OBS_fi.size)..")");
-		elseif (OBS_fi_i == 8) then
-			factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")");
+		if (OBS_fi_i == 8) then
+			factionHeader.Text:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")")
 		else
-			factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i+1, gender).." ("..tostring(OBS_fi.size)..")");
+			factionHeader.Text:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i+1, gender).." ("..tostring(OBS_fi.size)..")")
 		end
--- v rfl SBS 2
--- v rfl SBS 2.1
-		if ( RPH_Collapsed[OBS_fi_i] ) then
--- ^ rfl SBS 2.1
-			factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
+
+		if (RPH_Collapsed[OBS_fi_i]) then
+			factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
 		else
-			factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
+			factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
 		end
-		factionRow.index = factionIndex
--- v rfl 2.2.2
-		factionRow.isCollapsed = RPH_Collapsed[OBS_fi_i];
--- ^ rfl SBS 2.2
--- ^ rfl SBS 2
+
+		factionHeader.index = factionIndex;
+		factionHeader.isCollapsed = RPH_Collapsed[OBS_fi_i];
+
+		factionBar:Hide()
+		factionHeader:Show()
+		factionCheck:Hide()
+
 	else
--- v rfl SBS 1
-		-- get the info for this Faction
-		local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(OBS_fi_i);
-		local isParagon
-		factionTitle:SetText(name);
--- ^ rfl SBS 1
--- v rfl _16_
-	local colorIndex, isCappedFriendship, factionStandingtext  = RPH_Friend_Detail(factionID, standingID, factionRow);
--- ^ rfl  _16_
--- v rfl SBS 4
-		-- Normalize Values
-		local origBarValue = barValue
+		factionStandingText = GetText("FACTION_STANDING_LABEL"..standingID, gender)
+		factionStanding:SetText(factionStandingText)
+		factionName:SetText(name)
 
-		if ( factionID and C_Reputation.IsFactionParagon(factionID) ) then
-			isParagon = true
-        	local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
-        	paragonFrame.factionID = factionID;
-        	paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
-        	local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-			origBarValue = mod(currentValue, threshold);
-        	C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
-        	paragonFrame.Glow:SetShown(hasRewardPending);
-        	paragonFrame.Check:SetShown(hasRewardPending);
-        	paragonFrame:Show();
-      	end
-      	local isCapped;
-      	if (standingID == MAX_REPUTATION_REACTION) then
-        	isCapped = true;
-      	end
-
--- If exalted show a full green bar
-		if(standingID == 8 or isCappedFriendship) then
-			barMin,barMax,barValue = 0,1,1;
-		end
--- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
-		if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-			barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
-		end
-
-		barMax = barMax - barMin;
-		barValue = barValue - barMin;
-		barMin = 0;
-
-		if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar and RPH_Data.ShowMissing ~= true) then
-			factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
-		elseif(isCapped or isCappedFriendship) then
-			factionRow.rolloverText = nil;
-		elseif(RPH_Data.ShowMissing ~= true) then
-			factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
+		if (atWarWith) then
+			factionAtWarIndicator:Show()
 		else
-			factionRow.rolloverText = nil;
-		end
--- ^ rfl SBS 4
--- v rfl SBS 3
--- v rfl SBS 3.1
-		local toExalted = 0
-		if (standingID <8) then
-			toExalted = RPH_ToExalted[standingID] + barMax - barValue;
+			factionAtWarIndicator:Hide()
 		end
 
-		local toBFF = 0
-		if (isCappedFriendship ~= true and isFriend) then
-			toBFF = RPH_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
+		barMax = barMax - barMin
+		barValue = barValue - barMin
+		barMin = 0
+
+		factionBar.index = OBS_fi_i
+		factionBar.standingText = factionStandingText
+		factionBar.tooltip  = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
+		factionBar:SetMinMaxValues(0, barMax)
+		factionBar:SetValue(barValue)
+		color = FACTION_BAR_COLORS[standingID]
+		factionBar:SetStatusBarColor(color.r, color.g, color.b)
+		factionBar:SetID(factionIndex)
+		factionBar:Show()
+		factionHeader:Hide()
+
+		if (hasRep) or (not isHeader) then
+			factionBar.hasRep = true
+		else
+			factionBar.hasRep = false
 		end
 
-		factionRow.index = OBS_fi_i;
+		if (isWatched) then
+			factionCheck:Show()
+			factionName:SetWidth(100)
+			factionCheck:SetPoint("LEFT", factionName, "LEFT", factionName:GetStringWidth(), 0)
+		else
+			factionCheck:Hide()
+			factionName:SetWidth(110)
+		end
 
-	if (RPH_Data.ShowMissing) then
-		if ((barMax-barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
-		elseif ((barMax-barValue) ~= 0) then
-			factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
-		else
-			factionRow.standingText = factionStandingtext;
-		end
-	else
--- ^ rfl SBS 3.1
-		if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			factionRow.standingText = "Paragon";
-		else
-			factionRow.standingText = factionStandingtext;
-		end
--- v rfl SBS 3.2
-	end
--- ^ rfl SBS 3.2
--- ^ rfl SBS 3
--- v rfl SBS 5
--- v rfl SBS 5.1
-		factionStanding:SetText(factionRow.standingText);
--- ^ rfl SBS 5.1
-		if ( isCappedFriendship ) then
-			factionRow.tooltip = nil;
-		else
-			factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE;
-		end
-		factionBar:SetMinMaxValues(0, barMax);
-		factionBar:SetValue(barValue);
-		local color = FACTION_BAR_COLORS[standingID];
-		factionBar:SetStatusBarColor(color.r, color.g, color.b);
-		factionBar.BonusIcon:SetShown(hasBonusRepGain);
-		factionRow.LFGBonusRepButton.factionID = factionID;
-		factionRow.LFGBonusRepButton:SetShown(canBeLFGBonus);
-		factionRow.LFGBonusRepButton:SetChecked(lfgBonusFactionID == factionID);
-		factionRow.LFGBonusRepButton:SetEnabled(lfgBonusFactionID ~= factionID);
-		if ( showLFGPulse and not SHOWED_LFG_PULSE and not lfgBonusFactionID ) then
-        	factionRow.LFGBonusRepButton.Glow:Show();
-        	factionRow.LFGBonusRepButton.GlowAnim:Play();
-    	else
-        	factionRow.LFGBonusRepButton.Glow:Hide();
-        	factionRow.LFGBonusRepButton.GlowAnim:Stop();
-    	end
--- ^ rfl SBS 5
-		local previewValue = 0
-		if (RPH_Data.ShowPreviewRep) then
-			previewValue = RPH:GetReadyReputation(OBS_fi_i)
-		end
-		if ((previewValue > 0) and not ((standingID==8) and (barMax-barValue == 1) ) ) then
-			factionBarPreview:Show()
-			factionBarPreview:SetMinMaxValues(0, barMax)
-			previewValue = previewValue + barValue
-			if (previewValue > barMax) then previewValue = barMax end
-			factionBarPreview:SetValue(previewValue)
-			factionBarPreview:SetID(factionIndex)
-			factionBarPreview:SetStatusBarColor(0.8, 0.8, 0.8, 0.5)
-		else
-			factionBarPreview:Hide()
-		end
--- v rfl SBS 6
--- v rfl SBS 6.1
-		RPH_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep);
--- ^ rfl SBS 6.1
-		factionRow:Show();
-		-- Update details if this is the selected Faction
-		if ( atWarWith ) then
-			_G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show();
-			_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show();
-		else
-			_G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide();
-			_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide();
-		end
-		-- Update details if this is the selected Faction
--- v rfl SBS 6.1
 		if ( OBS_fi_i == GetSelectedFaction() ) then
--- ^ rfl SBS 6.1
 			if ( ReputationDetailFrame:IsShown() ) then
--- v rfl SBS 6.2
-				if ( canToggleAtWar ) then local flag = 1 end
-				RPH_ReputationDetailFrame_IsShown(OBS_fi_I,flag,1)
-			end
-			if ( RPH_ReputationDetailFrame:IsVisible() ) then 
-				RPH:Rep_Detail_Frame(OBS_fi_i,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
+				ReputationDetailFactionName:SetText(name);
+				ReputationDetailFactionDescription:SetText(description);
+				if ( atWarWith ) then
+					ReputationDetailAtWarCheckBox:SetChecked(1);
+				else
+					ReputationDetailAtWarCheckBox:SetChecked(nil);
+				end
+				if ( canToggleAtWar ) then
+					ReputationDetailAtWarCheckBox:Enable();
+					ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+					RPH_ReputationDetailFrame_IsShown(OBS_fi_i, 1, 1)
+				else
+					ReputationDetailAtWarCheckBox:Disable();
+					ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
 
--- ^ rfl SBS 6.2
--- ^ rfl SBS 6
--- v rfl _17 start line 4
--- ^ rfl _17
--- v rfl SBS 7
-			_G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
-			_G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
--- v rfl SBS 7.1
+				end
+
+				if ( IsFactionInactive(factionIndex) ) then
+					ReputationDetailInactiveCheckBox:SetChecked(1);
+				else
+					ReputationDetailInactiveCheckBox:SetChecked(nil);
+				end
+				if ( isWatched ) then
+					ReputationDetailMainScreenCheckBox:SetChecked(1);
+				else
+					ReputationDetailMainScreenCheckBox:SetChecked(nil);
+				end
 			end
--- ^ rfl SBS 7.1
+			if (RPH_ReputationDetailFrame:IsVisible()) then
+				RPH:Rep_Detail_Frame(OBS_fi_i,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingText) 
+			end
+			_G["ReputationBar"..i.."Highlight1"]:Show();
+			_G["ReputationBar"..i.."Highlight2"]:Show();
 		else
-			_G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide();
-			_G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide();
+			_G["ReputationBar"..i.."Highlight1"]:Hide();
+			_G["ReputationBar"..i.."Highlight2"]:Hide();
 		end
--- ^ rfl SBS 7
 	end
-
 end
 
+function RPH:OriginalRepOrder(i,factionIndex,factionBar,factionHeader,factionCheck,factionName,factionStanding,factionAtWarIndicator,factionRightBarTexture)
 
--- ^ rfl SBS
-function RPH:OriginalRepOrder(i,factionIndex,factionRow,factionBar,factionBarPreview,factionTitle,factionButton,factionStanding,factionBackground,lfgBonusFactionID)
--- v rfl ORO set 2 start
-
-
-
-
-
-
-
--- v rfl ORO 1
 	-- get the info for this Faction
 	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex);
-	local isParagon
-	factionTitle:SetText(name);
--- ^ rfl ORO 1
--- v rfl ORO 2
-
-	if ( isCollapsed ) then
-		factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
-	else
-		factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
-	end
-	factionRow.index = factionIndex;
-	factionRow.isCollapsed = isCollapsed;
--- ^ rfl ORO 2
-
-
--- v rfl _16 line start 3
-	local colorIndex, isCappedFriendship, factionStandingtext, isFriend = RPH_Friend_Detail(factionID, standingID, factionRow);
--- ^ rfl  _16_
--- v rfl ORO 4
-	
 	local origBarValue = barValue
-	
-	if ( factionID and C_Reputation.IsFactionParagon(factionID) ) then
-		isParagon = true
-        local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
-        paragonFrame.factionID = factionID;
-        paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
-		local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-		origBarValue = mod(currentValue, threshold);
-        C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
-        paragonFrame.Glow:SetShown(hasRewardPending);
-        paragonFrame.Check:SetShown(hasRewardPending);
-        paragonFrame:Show();
-	  end
-      local isCapped;
-      if (standingID == MAX_REPUTATION_REACTION) then
-        isCapped = true;
-      end
 
--- If exalted show a full green bar
-	if(standingID == 8 or isCappedFriendship) then
-		barMin,barMax,barValue = 0,1,1;
-	end
--- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
-	if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-		local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-		barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
-	end
+	if (isHeader) then
+		factionHeader.Text:SetText(name)
 
--- Normalize Values
-	barMax = barMax - barMin;
-	barValue = barValue - barMin;
-	barMin = 0;
-
-	if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar and RPH_Data.ShowMissing ~= true) then
-		factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
-	elseif(isCapped or isCappedFriendship) then
-		factionRow.rolloverText = nil;
-	elseif(RPH_Data.ShowMissing ~= true) then
-		factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
-	else
-		factionRow.rolloverText = nil;
-	end
-
--- ^ rfl ORO 4
--- v rfl ORO 3
--- v rfl ORO 3.1
-	local toExalted = 0
-	if (standingID <8) then
-		toExalted = RPH_ToExalted[standingID] + barMax - barValue;
-	end
-
-	local toBFF = 0
-	if (isCappedFriendship ~= true and isFriend) then
-		toBFF = RPH_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
-	end
-
-
-	if (RPH_Data.ShowMissing) then
-		if ((barMax-barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
-		elseif ((barMax-barValue) ~= 0) then
-			factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
+		if ( isCollapsed ) then
+			factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
 		else
-			factionRow.standingText = factionStandingtext;
+			factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
 		end
+		factionHeader.index = factionIndex;
+		factionHeader.isCollapsed = isCollapsed;
+
+		factionBar:Hide()
+		factionHeader:Show()
+		factionCheck:Hide()
 	else
--- ^ rfl SBS 3.1
-		if(factionID and C_Reputation.IsFactionParagon(factionID) and RPH_Data.ShowParagonBar) then
-			factionRow.standingText = "Paragon";
+		factionStandingText = GetText("FACTION_STANDING_LABEL"..standingID, gender)
+		factionStanding:SetText(factionStandingText)
+		factionName:SetText(name)
+
+		if (atWarWith) then
+			factionAtWarIndicator:Show()
 		else
-			factionRow.standingText = factionStandingtext;
-		end
--- v rfl SBS 3.2
-	end
--- ^ rfl ORO 3.2
--- ^ rfl ORO 3
--- v rfl ORO 5
--- v rfl ORO 5.1
-	
-	factionStanding:SetText(factionRow.standingText);
--- ^ rfl ORO 5.1
-	if ( isCappedFriendship ) then
-		factionRow.tooltip = nil;
-	else
-		factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE;
-	end
-	factionBar:SetMinMaxValues(0, barMax);
-
-	factionBar:SetValue(barValue);
-	local color = FACTION_BAR_COLORS[colorIndex];
-	factionBar:SetStatusBarColor(color.r, color.g, color.b);
-	factionBar.BonusIcon:SetShown(hasBonusRepGain);
-	factionRow.LFGBonusRepButton.factionID = factionID;
-	factionRow.LFGBonusRepButton:SetShown(canBeLFGBonus);
-	factionRow.LFGBonusRepButton:SetChecked(lfgBonusFactionID == factionID);
-	factionRow.LFGBonusRepButton:SetEnabled(lfgBonusFactionID ~= factionID);
-
-	if ( showLFGPulse and not SHOWED_LFG_PULSE and not lfgBonusFactionID ) then
-        factionRow.LFGBonusRepButton.Glow:Show();
-        factionRow.LFGBonusRepButton.GlowAnim:Play();
-    else
-        factionRow.LFGBonusRepButton.Glow:Hide();
-        factionRow.LFGBonusRepButton.GlowAnim:Stop();
-    end
--- ^ rfl ORO 5
-	local previewValue = 0
-	if (RPH_Data.ShowPreviewRep) then
-		previewValue = RPH:GetReadyReputation(factionIndex)
-	end
-	if ((previewValue > 0) and not ((standingID==8) and (barMax-barValue == 1) ) ) then
-		factionBarPreview:Show()
-		factionBarPreview:SetMinMaxValues(0, barMax)
-		previewValue = previewValue + barValue
-		if (previewValue > barMax) then previewValue = barMax end
-		factionBarPreview:SetValue(previewValue)
-		factionBarPreview:SetID(factionIndex)
-		factionBarPreview:SetStatusBarColor(0.8, 0.8, 0.8, 0.5)
-	else
-	---	factionBarPreview:Hide()
-	end
--- v rfl ORO 6
-
-	ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep);
-
-	factionRow:Show();
-	-- Update details if this is the selected Faction
-	if ( atWarWith ) then
-		_G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show();
-		_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show();
-	else
-		_G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide();
-		_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide();
-	end
-
-
-	if ( factionIndex == GetSelectedFaction() ) then
-
-		if ( ReputationDetailFrame:IsShown() ) then
--- v rfl ORO 6.1
-			if ( canToggleAtWar and (not isHeader)) then local flag = 1 end
-			RPH_ReputationDetailFrame_IsShown(factionIndex,flag,2)
-		end
-		if ( RPH_ReputationDetailFrame:IsVisible() ) then 
-			RPH:Rep_Detail_Frame(factionIndex,colorIndex,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext,toBFF, isParagon, isFriend, isCappedFriendship) 
--- ^ rfl ORO 6.1
--- ^ rfl ORO 6
--- v rfl _17 start line 4
--- ^ rfl _17
--- v rfl ORO 7
-			_G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
-			_G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
-
+			factionAtWarIndicator:Hide()
 		end
 
-	else
-		_G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide();
-		_G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide();
-	end
--- ^ rfl ORO 7
+		barMax = barMax - barMin
+		barValue = barValue - barMin
+		barMin = 0
 
+		factionBar.index = factionIndex
+		factionBar.standingText = factionStandingText
+		factionBar.tooltip  = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
+		factionBar:SetMinMaxValues(0, barMax)
+		factionBar:SetValue(barValue)
+		color = FACTION_BAR_COLORS[standingID]
+		factionBar:SetStatusBarColor(color.r, color.g, color.b)
+		factionBar:SetID(factionIndex)
+		factionBar:Show()
+		factionHeader:Hide()
+
+		if (hasRep) or (not isHeader) then
+			factionBar.hasRep = true
+		else
+			factionBar.hasRep = false
+		end
+
+		if (isWatched) then
+			factionCheck:Show()
+			factionName:SetWidth(100)
+			factionCheck:SetPoint("LEFT", factionName, "LEFT", factionName:GetStringWidth(), 0)
+		else
+			factionCheck:Hide()
+			factionName:SetWidth(110)
+		end
+
+		if ( factionIndex == GetSelectedFaction() ) then
+			if ( ReputationDetailFrame:IsShown() ) then
+				ReputationDetailFactionName:SetText(name);
+				ReputationDetailFactionDescription:SetText(description);
+				if ( atWarWith ) then
+					ReputationDetailAtWarCheckBox:SetChecked(1);
+				else
+					ReputationDetailAtWarCheckBox:SetChecked(nil);
+				end
+				if ( canToggleAtWar ) then
+					ReputationDetailAtWarCheckBox:Enable();
+					ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+					RPH_ReputationDetailFrame_IsShown(factionIndex, 1, 2)
+				else
+					ReputationDetailAtWarCheckBox:Disable();
+					ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+
+				end
+
+				if ( IsFactionInactive(factionIndex) ) then
+					ReputationDetailInactiveCheckBox:SetChecked(1);
+				else
+					ReputationDetailInactiveCheckBox:SetChecked(nil);
+				end
+				if ( isWatched ) then
+					ReputationDetailMainScreenCheckBox:SetChecked(1);
+				else
+					ReputationDetailMainScreenCheckBox:SetChecked(nil);
+				end
+			end
+			if (RPH_ReputationDetailFrame:IsVisible()) then
+				RPH:Rep_Detail_Frame(factionIndex,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingText) 
+			end
+			_G["ReputationBar"..i.."Highlight1"]:Show();
+			_G["ReputationBar"..i.."Highlight2"]:Show();
+		else
+			_G["ReputationBar"..i.."Highlight1"]:Hide();
+			_G["ReputationBar"..i.."Highlight2"]:Hide();
+		end
+	end
 end
--- ^ rfl ORO

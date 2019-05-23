@@ -1247,7 +1247,7 @@
 	</Frame>								
 									
 <!--> ============================================================================================================== <-->									
-	<StatusBar name="RPH_PreviewBarTemplate" virtual="true" drawLayer="BACKGROUND" minValue="0" maxValue="1" defaultValue="0">								
+	<!--><StatusBar name="RPH_PreviewBarTemplate" virtual="true" drawLayer="BACKGROUND" minValue="0" maxValue="1" defaultValue="0">								
 		<Size x="101" y="5"/>							
 		<HitRectInsets>							
 			<AbsInset left="-2" right="-2" top="-2" bottom="-2"/>						
@@ -1301,7 +1301,7 @@
 	</StatusBar>								
 	<StatusBar name="RPH_StatusBar15" parent="ReputationBar15" inherits="RPH_PreviewBarTemplate">								
 		<Anchors><Anchor point="TOPLEFT" relativeTo="ReputationBar15ReputationBar" relativePoint="TOPLEFT"><Offset x="0" y="0"/></Anchor></Anchors>							
-	</StatusBar>								
+	</StatusBar>	<-->							
 									
 <!--> ============================================================================================================== <-->									
 									
