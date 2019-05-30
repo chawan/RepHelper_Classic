@@ -3165,23 +3165,21 @@ end
 -- _17_ extracting Skill information
 ------------------------
 function RPH:ExtractSkills() --- ggg
-	RPH_Herb = false
-	RPH_Skin = false
-	RPH_Mine = false
-	RPH_Alche = false
-	RPH_Black = false
+	RPH_Herb   = false
+	RPH_Skin   = false
+	RPH_Mine   = false
+	RPH_Alche  = false
+	RPH_Black  = false
 	RPH_Enchan = false
-	RPH_Engin = false
-	RPH_Leath = false
+	RPH_Engin  = false
+	RPH_Leath  = false
 	RPH_Tailor = false
-	RPH_Aid = false
-	RPH_Cook = false
-	RPH_Fish = false
+	RPH_Aid    = false
+	RPH_Cook   = false
+	RPH_Fish   = false
 
 	for i=1,GetNumSkillLines() do 
 		local skillName = GetSkillLineInfo(i)
-
-		RPH:Print(skillName);
 
 		if (skillName == RPH_TXT.skillAlch) then
 			RPH_Alche = true
