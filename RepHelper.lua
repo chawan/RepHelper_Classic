@@ -3165,7 +3165,6 @@ end
 -- _17_ extracting Skill information
 ------------------------
 function RPH:ExtractSkills() --- ggg
-	-- TODO Fix profession stuff since GetProfessions is removed
 	RPH_Herb = false
 	RPH_Skin = false
 	RPH_Mine = false
@@ -3179,74 +3178,77 @@ function RPH:ExtractSkills() --- ggg
 	RPH_Cook = false
 	RPH_Fish = false
 
-	local professions = {}
-	local name, skillLine
-	local prof1, prof2, archaeology, fishing, cooking, firstaid = GetProfessions();
-	if (prof1) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(prof1);
-		if name then professions[1] = name end
-	end
-	if (prof2) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(prof2);
-		if name then professions[2] = name end
-	end
-	if (fishing) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(fishing);
-		if name then professions[4] = name end
-	end
-	if (cooking) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(cooking);
-		if name then professions[5] = name end
-	end
-	if (firstaid) then
-		name, _, _, _, _, _, skillLine = GetProfessionInfo(firstaid);
-		if name then professions[6] = name end
-	end
-	for skillIndex in pairs(professions) do
-		skillName = professions[skillIndex] --- ggg zzz
+	for i=1,GetNumSkillLines() do 
+		local skillName = GetSkillLineInfo(i)
+
+		RPH:Print(skillName);
+
+		if (skillName == RPH_TXT.skillAlch) then
+			RPH_Alche = true
+		end
+
+		if (skillName == RPH_TXT.skillBlack) then
+			RPH_Black = true
+		end
+
+		if (skillName == RPH_TXT.skillEnch) then
+			RPH_Enchan = true
+		end
+
+		if (skillName == RPH_TXT.skillEngi) then
+			RPH_Engin = true
+		end
+
 		if (skillName == RPH_TXT.skillHerb) then
 			RPH_Herb = true
-		elseif (skillName == RPH_TXT.skillSkin) then
-			RPH_Skin = true
-		elseif (skillName == RPH_TXT.skillMine) then
-			RPH_Mine = true
-		elseif (skillName == RPH_TXT.skillAlch) then
-			RPH_Alche = true
-		elseif (skillName == RPH_TXT.skillBlack) then
-			RPH_Black = true
-		elseif (skillName == RPH_TXT.skillEnch) then
-			RPH_Enchan = true
-		elseif (skillName == RPH_TXT.skillEngi) then
-			RPH_Engin = true
-		elseif (skillName == RPH_TXT.skillLeath) then
+		end
+
+		if (skillName == RPH_TXT.skillLeath) then
 			RPH_Leath = true
-		elseif (skillName == RPH_TXT.skillTail) then
+		end
+
+		if (skillName == RPH_TXT.skillMine) then
+			RPH_Mine = true
+		end
+
+		if (skillName == RPH_TXT.skillSkin) then
+			RPH_Skin = true
+		end
+
+		if (skillName == RPH_TXT.skillTail) then
 			RPH_Tailor = true
-		elseif (skillName == RPH_TXT.skillAid) then
-			RPH_Aid = true
-		elseif (skillName == RPH_TXT.skillCook) then
+		end
+
+		if (skillName == RPH_TXT.skillCook) then
 			RPH_Cook = true
-		elseif (skillName == RPH_TXT.skillFish) then
+		end
+
+		if (skillName == RPH_TXT.skillAid) then
+			RPH_Aid = true
+		end
+
+		if (skillName == RPH_TXT.skillFish) then
 			RPH_Fish = true
 		end
+			
 	end
---[[----------------------------------------------------------
-	RPH:Printtest(prof1, prof2, archaeology)--fpt --zzz
-	RPH:Printtest(fishing, cooking, firstaid)--fpt --zzz
-	RPH:Printtest("skillHerb",RPH_TXT.skillHerb,RPH_Herb)
-	RPH:Printtest("skillHerb",RPH_TXT.skillMine,RPH_Mine)
-	RPH:Printtest("skillHerb",RPH_TXT.skillSkin,RPH_Skin)
-	RPH:Printtest("skillHerb",RPH_TXT.skillAlch,RPH_Alche)
-	RPH:Printtest("skillHerb",RPH_TXT.skillBlack,RPH_Black)
-	RPH:Printtest("skillHerb",RPH_TXT.skillEnch,RPH_Enchan)
-	RPH:Printtest("skillHerb",RPH_TXT.skillEngi,RPH_Engin)
-	RPH:Printtest("skillHerb",RPH_TXT.skillIncrip,RPH_Incrip)
-	RPH:Printtest("skillHerb",RPH_TXT.skillJewel,RPH_Jewel)
-	RPH:Printtest("skillHerb",RPH_TXT.skillLeath,RPH_Leath)
-	RPH:Printtest("skillHerb",RPH_TXT.skillAid,RPH_Aid)
-	RPH:Printtest("skillHerb",RPH_TXT.skillArch,RPH_Arch)
-	RPH:Printtest("skillHerb",RPH_TXT.skillCook,RPH_Cook)
-	RPH:Printtest("skillHerb",RPH_TXT.skillFish,RPH_Fish)--]]--
+
+	--RPH:Printtest(prof1, prof2, archaeology)--fpt --zzz
+	--RPH:Printtest(fishing, cooking, firstaid)--fpt --zzz
+	--RPH:Printtest("skillHerb",RPH_TXT.skillHerb,RPH_Herb)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillMine,RPH_Mine)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillSkin,RPH_Skin)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillAlch,RPH_Alche)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillBlack,RPH_Black)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillEnch,RPH_Enchan)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillEngi,RPH_Engin)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillIncrip,RPH_Incrip)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillJewel,RPH_Jewel)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillLeath,RPH_Leath)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillAid,RPH_Aid)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillArch,RPH_Arch)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillCook,RPH_Cook)
+	--RPH:Printtest("skillHerb",RPH_TXT.skillFish,RPH_Fish)
 end
 
 --------------------------
