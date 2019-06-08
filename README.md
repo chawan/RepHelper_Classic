@@ -2,7 +2,7 @@
 A World of Warcraft Classic addon to help you manage your reputation and Factions.
 
 ## Work in progress
-This is still a work in progress. The core functionality of the addon should be working as expected but all the faction data is still missing.
+The core functionality of the addon should be working as expected but all the faction data is still missing.
 
 ## History/Base
 This addon is initially based on the out-dated addon Factionizer.
