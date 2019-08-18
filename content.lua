@@ -90,6 +90,29 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
 		RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
 
+		-- Silverwing Sentinels
+		RPH_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
+		RPH_AddItems(890, 4, 8, 50, {[20558] = 3})
+		RPH_AddQuest(890, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
+
+		-- League of Arathor
+		RPH_AddGeneral(509, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 100 Resources", "For every 100 resources your team collects you gain 50 reputation")
+		RPH_AddGeneral(509, 4, 8, "Arathi Basin win (2000 Resources)", 100, "Arathi Basin win (2000 Resources)", "If your team wins with 2000 resources you will earn a total of 100 reputation")
+		RPH_AddItems(509, 4, 8, 50, {[20559] = 3})
+		RPH_AddQuest(509, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
+		RPH_AddQuest(509, 4, 8, 8105, 500)
+		RPH_AddQuest(509, 5, 8, 8114, 800)
+
+		-- Stormpike Guard
+		RPH_AddMob(730, 4, 8, "Drek'Thar", 389)
+		RPH_AddMob(730, 4, 8, "Captain Galvangar", 125)
+		RPH_AddMob(730, 4, 8, "Horde Commanders", 12)
+		RPH_AddMob(730, 4, 8, "Horde Air Masters", 5)
+		RPH_AddMob(730, 4, 6, "Horde Guards", 5)
+		RPH_AddMob(730, 4, 8, "Lokholar the Ice Lord", 125)
+		RPH_AddGeneral(730, 4, 8, "Horde Players", 1, "Horde Players", "Kill Horde players to gain reputation")
+
+
 	end
 
 	if (RPH_IsHorde) then
@@ -126,6 +149,28 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(68, 4, 8, 7817, 75, {[14047] = 20})
 		RPH_AddQuest(68, 4, 8, 8817, 5, {[21438] = 1})
 		RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
+
+		-- Warsong Outriders
+		RPH_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
+		RPH_AddItems(889, 4, 8, 50, {[20558] = 3})
+		RPH_AddQuest(889, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
+		
+		-- The Defilers
+		RPH_AddGeneral(510, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 100 Resources", "For every 100 resources your team collects you gain 50 reputation")
+		RPH_AddGeneral(510, 4, 8, "Arathi Basin win (2000 Resources)", 100, "Arathi Basin win (2000 Resources)", "If your team wins with 2000 resources you will earn a total of 100 reputation")
+		RPH_AddItems(510, 4, 8, 50, {[20559] = 3})
+		RPH_AddQuest(510, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
+		RPH_AddQuest(510, 4, 8, 8120, 500)
+		RPH_AddQuest(510, 5, 8, 8121, 800)
+
+		-- Frowstwolf Clan
+		RPH_AddMob(729, 4, 8, "Vanndar Stormpike", 389)
+		RPH_AddMob(729, 4, 8, "Captain Balinda Stonehearth", 125)
+		RPH_AddMob(729, 4, 8, "Alliance Commanders", 12)
+		RPH_AddMob(729, 4, 8, "Alliance Air Masters", 5)
+		RPH_AddMob(729, 4, 6, "Alliance Guards", 5)
+		RPH_AddMob(729, 4, 8, "Ivus the Forest Lord", 125)
+		RPH_AddGeneral(729, 4, 8, "Alliance Players", 1, "Alliance Players", "Kill Alliance players to gain reputation")
 
 	end
 
@@ -277,6 +322,16 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
 	RPH_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
 	
+	-- Zandalar Tribe
+	RPH_AddQuest(270, 4, 8, 8238, 25, {[19701] = 1, [19702] = 1, [19703] = 1})
+	RPH_AddQuest(270, 4, 8, 8239, 25, {[19704] = 1, [19705] = 1, [19706] = 1})
+	RPH_AddQuest(270, 4, 8, 8195, 25, {[19698] = 1, [19699] = 1, [19700] = 1})
+	RPH_AddQuest(270, 4, 8, 9210, 500, {[18330] = 1})
+	RPH_AddQuest(270, 4, 8, 9208, 500, {[18331] = 1})
+	RPH_AddQuest(270, 4, 8, 9209, 500, {[18329] = 1})
+	RPH_AddQuest(270, 4, 8, 75, "Destoy a Bijou at the Altar of Zanza")
+	RPH_AddItems(270, 4, 8, 50, {[19858] = 1})
+	RPH_AddInstance(270, 4, 8, "Zul'Gurub", 2750)
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
