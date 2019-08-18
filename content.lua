@@ -190,6 +190,24 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
 
 	end
+
+	-- Argent Dawn
+	RPH_AddQuest(529, 4, 8, "Minion's Scourgestones", 25, {[12840] = 20})
+	RPH_AddQuest(529, 4, 8, "Invader's Scourgestones", 25, {[12841] = 10})
+	RPH_AddQuest(529, 4, 8, "Corruptor's Scourgestone", 25, {[12843] = 1})
+	RPH_AddItems(529, 4, 8, 25, {[12844] = 1})
+	RPH_AddQuest(529, 4, 8, 9132, 10, {[22528] = 30})
+	RPH_AddQuest(529, 4, 8, 9127, 10, {[22526] = 30})
+	RPH_AddQuest(529, 4, 8, 9129, 10, {[22527] = 30})
+	RPH_AddQuest(529, 4, 8, 9125, 10, {[22524] = 30})
+	RPH_AddQuest(529, 4, 8, "Dalson's Tears /  Writhing Haunt Quests", 25, {[13320] = 1, [13356] = 5, [14047] = 4})
+	RPH_AddQuest(529, 4, 8, 5218, 25, {[13320] = 1, [13357] = 6, [14047] = 1})
+	RPH_AddMob(529, 4, 5, "Non-Elites in Plaguelands", 5)
+	RPH_AddMob(529, 4, 6, "Elites and Shadowmages Plaguelands", 5)
+	RPH_AddMob(529, 4, 6, "Cauldron Lords", 12)
+	RPH_AddMob(529, 4, 7, "Trash mobs in Stratholme and Scholomance", 5)
+	RPH_AddMob(529, 4, 5, "Bosses in Stratholme and Scholomance", 25)
+
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
