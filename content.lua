@@ -170,7 +170,8 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(910, 1, 8, 8784, 1000, {[21230] = 1})
 	RPH_AddQuest(910, 1, 4, 8302, 200, {[20384] = 200})
 
-	-- Cenarion Circle
+	-- Cenarion Circle 
+	--TODO: Confirm rep for Abyssal templar/duke/lord and add total instance rep
 	RPH_AddMob(609, 4, 6, "Twilight Cultists", 1, zone.Silithus)
 	RPH_AddMob(609, 4, 7, "Twilight Flamereaver", 1, zone.Silithus)
 	RPH_AddMob(609, 4, 8, "Twilight Lord Everun", 5)
@@ -180,10 +181,46 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(609, 4, 8, 8364, 350, {[20515] = 3})
 	RPH_AddQuest(609, 4, 8, 8319, 100, {[20404] = 10})
 	RPH_AddQuest(609, 4, 8, 9338, 200, {[20802] = 1, [20800] = 1, [20801] = 1})
-	-- TODO: Confirm rep for Abyssal templar/duke/lord and total instance rep
+	
+	-- Darkmoon Faire
+	RPH_AddQuest(909, 4, 4, "Small Furry Paws", 100, {[5134] = 5})
+	RPH_AddQuest(909, 4, 4, "Torn Bear Pelts", 100, {[11407] = 5})
+	RPH_AddQuest(909, 4, 4, "Soft Bushy Tails", 100, {[4582] = 5})
+	RPH_AddQuest(909, 4, 4, "Vibrant Plumes", 100, {[5117] = 5})
+	RPH_AddQuest(909, 4, 5, "Evil Bat Eyes", 100, {[11404] = 10})
+	RPH_AddQuest(909, 4, 5, "Glowing Scorpid Blood", 100, {[19933] = 10})
+	RPH_AddQuest(909, 4, 4, "Coarse Weightstones", 100, {[3240] = 10})
+	RPH_AddQuest(909, 4, 4, "Heavy Grinding Stone", 100, {[3486] = 7})
+	RPH_AddQuest(909, 4, 4, "Green Iron Bracers", 100, {[3835] = 3})
+	RPH_AddQuest(909, 4, 4, "Big Black Mace", 100, {[7945] = 1})
+	RPH_AddQuest(909, 4, 5, "Dense Grinding Stone", 100, {[12644] = 8})
+	RPH_AddQuest(909, 4, 4, "Copper Modulator", 100, {[4363] = 5}, 500)
+	RPH_AddQuest(909, 4, 4, "Whirring Bronze Gizmo", 100, {[4375] = 7})
+	RPH_AddQuest(909, 4, 4, "Green Firework", 100, {[9313] = 36})
+	RPH_AddQuest(909, 4, 4, "Mechanical Repair Kit", 100, {[11590] = 6})
+	RPH_AddQuest(909, 4, 5, "Throium Widget", 100, {[15994] = 6})
+	RPH_AddQuest(909, 4, 4, "Embossed Leather Boots", 100, {[2309] = 3})
+	RPH_AddQuest(909, 4, 4, "Toughened Leather Armor", 100, {[2314] = 3})
+	RPH_AddQuest(909, 4, 4, "Barbaric Harness", 100, {[5739] = 3})
+	RPH_AddQuest(909, 4, 4, "Turtle Scale Leggins", 100, {[8185] = 1})
+	RPH_AddQuest(909, 4, 5, "Rugged Armor Kit", 100, {[15564] = 8})
+	RPH_AddQuest(909, 4, 8, 7929, 150, {[19267] = 1})
+	RPH_AddQuest(909, 4, 8, 7907, 150, {[19228] = 1})
+	RPH_AddQuest(909, 4, 8, 7928, 150, {[19257] = 1})
+	RPH_AddQuest(909, 4, 8, 7927, 150, {[19277] = 1})
 
+	-- Hydraxian Waterlords
+	RPH_AddMob(749, 4, 6, "Desert Rumbler, Dust Stormer", 5, zone.Silithus)
+	RPH_AddMob(749, 4, 6, "Greater Obsidian Elemental", 5, zone.Burning_Steppes)
+	RPH_AddMob(749, 4, 7, "Lord Incendius", 15, "Blackrock Depths")
+	RPH_AddMob(749, 4, 7, "Huricanian (Rare)", 25, zone.Silithus)
+	RPH_AddMob(749, 4, 7, "Pyroguard Emberseer", 50, "Upper Blackrock Spire")
+	RPH_AddMob(749, 4, 7, "Molten Giant, Ancient Core Hound, Lava Surger, Firelord", 20, "Molten Core")
+	RPH_AddMob(749, 4, 7, "Molten Destroyer and Lava Pack", 40, "Molten Core")
+	RPH_AddInstance(749, 4, 8, "Molten Core (All bosses)", 1050, "Molten Core")
+	RPH_AddInstance(749, 4, 8, "Molten Core (Ragnaros and Golemagg)", 350, "Molten Core")
+	
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
 end
-
