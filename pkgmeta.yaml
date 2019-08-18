@@ -1,4 +1,4 @@
-package-as: RepHelper
+package-as: RepHelper_Classic
 
 ignore:
   - .travis.yml
