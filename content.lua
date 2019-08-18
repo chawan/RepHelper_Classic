@@ -219,8 +219,17 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(749, 4, 7, "Molten Destroyer and Lava Pack", 40, "Molten Core")
 	RPH_AddInstance(749, 4, 8, "Molten Core (All bosses)", 1050, "Molten Core")
 	RPH_AddInstance(749, 4, 8, "Molten Core (Ragnaros and Golemagg)", 350, "Molten Core")
-	
----	local preGC = collectgarbage("count")
+
+	-- Ravenholdt
+	RPH_AddMob(349, 4, 6, "Syndicate Mobs", 5)
+	RPH_AddQuest(349, 4, 5, "Syndicate Emblems (Rogue)", {[17124] = 1})
+	RPH_AddQuest(349, 4, 8, 8249, {[16885] = 5})
+
+	-- Shen'dralar
+	RPH_AddQuest(809, 4, 8, 7485, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
+	RPH_AddQuest(809, 4, 8, 7483, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2})
+	RPH_AddQuest(809, 4, 8, 7484, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2})
+---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
 end
