@@ -147,12 +147,12 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 
 	-- Bloodsail Buccaners
-	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25, Zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25, Zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5, Zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5, Zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", Zone.Arathi_Highlands)
-	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, Zone.Badlands)
+	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", zone.Arathi_Highlands)
+	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, zone.Badlands)
 
 	-- Brood of Nozdormu
 	RPH_AddMob(910, 1, 4, "Anubisath Defender", 100, "Temple of Ahn'Qiraj")
@@ -169,6 +169,9 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(910, 1, 8, 8595, 500, {[21229] = 1})
 	RPH_AddQuest(910, 1, 8, 8784, 1000, {[21230] = 1})
 	RPH_AddQuest(910, 1, 4, 8302, 200, {[20384] = 200})
+
+	-- Cenarion Circle
+
 
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
