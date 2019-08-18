@@ -206,7 +206,15 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(529, 4, 6, "Elites and Shadowmages Plaguelands", 5)
 	RPH_AddMob(529, 4, 6, "Cauldron Lords", 12)
 	RPH_AddMob(529, 4, 7, "Trash mobs in Stratholme and Scholomance", 5)
-	RPH_AddMob(529, 4, 5, "Bosses in Stratholme and Scholomance", 25)
+	RPH_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
+
+	-- Bloodsail Buccaners
+	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25)
+	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25)
+	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5)
+	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5)
+	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", "Arathi Highlands, Faldir's Cove")
+	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, "Badlands")
 
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
