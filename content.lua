@@ -254,6 +254,17 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(70, 1, 4, "Ravenholdt Assassin", 5)
 	RPH_AddMob(70, 1, 4, "Ravenholdt Guard", 5)
 
+	-- Thorium Brotherhood
+	RPH_AddQuest(59, 4, 5, 8242, 25, {[18944] = 2, [4234] = 10, [3857] = 1})
+	RPH_AddQuest(50, 4, 5, 8241, 25, {[18944] = 2, [3575] = 4, [3857] = 1})
+	RPH_AddQuest(50, 4, 5, 7736, 25, {[18944] = 2, [3356] = 4, [3857] = 1})
+	RPH_AddQuest(50, 5, 6, 7737, 625, {[18945] = 100})
+	RPH_AddQuest(50, 6, 8, 6642, 50, {[11370] = 10})
+	RPH_AddQuest(50, 6, 8, 6643, 200, {[17010] = 1})
+	RPH_AddQuest(50, 6, 8, 6644, 200, {[17011] = 1})
+	RPH_AddQuest(50, 6, 8, 6645, 150, {[17012] = 2})
+	RPH_AddQuest(50, 6, 8, 6646, 200, {[11382] = 1})
+
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
