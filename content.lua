@@ -265,6 +265,18 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(50, 6, 8, 6645, 150, {[17012] = 2})
 	RPH_AddQuest(50, 6, 8, 6646, 200, {[11382] = 1})
 
+	-- Timbermaw Hold
+	RPH_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 5)
+	RPH_AddMob(576, 2, 6, "Winterfall Runner, Den Watcher, Pathfinder, Totemic, Shaman, & Ursa", 5)
+	RPH_AddMob(576, 2, 8, "Chieftain Bloodmaw", 15)
+	RPH_AddMob(576, 2, 8, "Overlord Ror", 15)
+	RPH_AddMob(576, 2, 8, "Ragepaw (Rare)", 25)
+	RPH_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 25)
+	RPH_AddMob(576, 2, 8, "High Chief Winterfall", 25)
+	RPH_AddQuest(576, 2, 8, 8469, 50, {[21383] = 5})
+	RPH_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
+	RPH_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
+	
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
