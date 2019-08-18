@@ -229,6 +229,17 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(809, 4, 8, 7485, 500, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
 	RPH_AddQuest(809, 4, 8, 7483, 500, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2})
 	RPH_AddQuest(809, 4, 8, 7484, 500, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2})
+	RPH_AddQuest(809, 4, 8, "Class Quests", 500)
+
+	-- Steamwheedle Cartel
+	-- Everlook
+	RPH_AddQuest(577, 1, 4, 9266, 500, {[14047] = 40, [3857] = 4})
+	-- Gadgetzan
+	RPH_AddQuest(369, 1, 4, 9268, 500, {[4338] = 40, [3466] = 4})
+	-- Ratchet
+	RPH_AddQuest(470, 1, 4, 9267, 500, {[2589] = 40, [3371] = 4})
+	-- Booty Bay
+	RPH_AddQuest(21, 1, 4, 9259, 500, {[4306] = 40, [2604] = 4})
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
