@@ -104,6 +104,7 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(509, 5, 8, 8114, 800)
 
 		-- Stormpike Guard
+		-- TODO: Add the quests when I can find confirmed rep values
 		RPH_AddMob(730, 4, 8, "Drek'Thar", 389)
 		RPH_AddMob(730, 4, 8, "Captain Galvangar", 125)
 		RPH_AddMob(730, 4, 8, "Horde Commanders", 12)
@@ -164,6 +165,7 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(510, 5, 8, 8121, 800)
 
 		-- Frowstwolf Clan
+		-- TODO: Add the quests when I can find confirmed rep values
 		RPH_AddMob(729, 4, 8, "Vanndar Stormpike", 389)
 		RPH_AddMob(729, 4, 8, "Captain Balinda Stonehearth", 125)
 		RPH_AddMob(729, 4, 8, "Alliance Commanders", 12)
