@@ -222,13 +222,13 @@ function RPH_InitEnFactionGains()
 
 	-- Ravenholdt
 	RPH_AddMob(349, 4, 6, "Syndicate Mobs", 5)
-	RPH_AddQuest(349, 4, 5, "Syndicate Emblems (Rogue)", {[17124] = 1})
-	RPH_AddQuest(349, 4, 8, 8249, {[16885] = 5})
+	RPH_AddQuest(349, 4, 5, "Syndicate Emblems (Rogue)", 100, {[17124] = 1})
+	RPH_AddQuest(349, 4, 8, 8249, 50, {[16885] = 5})
 
 	-- Shen'dralar
-	RPH_AddQuest(809, 4, 8, 7485, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
-	RPH_AddQuest(809, 4, 8, 7483, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2})
-	RPH_AddQuest(809, 4, 8, 7484, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2})
+	RPH_AddQuest(809, 4, 8, 7485, 500, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
+	RPH_AddQuest(809, 4, 8, 7483, 500, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2})
+	RPH_AddQuest(809, 4, 8, 7484, 500, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2})
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
