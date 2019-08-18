@@ -1,8 +1,8 @@
 # RepHelper_Classic [![Build Status](https://travis-ci.org/chawan/RepHelper.svg?branch=master)](https://travis-ci.org/chawan/RepHelper)
 A World of Warcraft Classic addon to help you manage your reputation and Factions.
 
-## Work in progress
-The core functionality of the addon should be working as expected but all the faction data is still missing.
+## Issues
+##### For any issues please refer to the main repository at [https://github.com/chawan/RepHelper](https://github.com/chawan/RepHelper)
 
 ## History/Base
 This addon is initially based on the out-dated addon Factionizer.
