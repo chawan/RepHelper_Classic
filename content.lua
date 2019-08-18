@@ -240,6 +240,20 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(470, 1, 4, 9267, 500, {[2589] = 40, [3371] = 4})
 	-- Booty Bay
 	RPH_AddQuest(21, 1, 4, 9259, 500, {[4306] = 40, [2604] = 4})
+
+	-- Syndicate
+	RPH_AddMob(70, 1, 4, "Myrokos Silentform", 25)
+	RPH_AddMob(70, 1, 4, "Winstone Wolfe", 5)
+	RPH_AddMob(70, 1, 4, "Lord Jorach Ravenholdt", 5)
+	RPH_AddMob(70, 1, 4, "Fahrad", 5)
+	RPH_AddMob(70, 1, 4, "Zan Shivsproket", 5)
+	RPH_AddMob(70, 1, 4, "Smudge Thunderwood", 5)
+	RPH_AddMob(70, 1, 4, "Simone Cantrell", 5)
+	RPH_AddMob(70, 1, 4, "Master Kang", 5)
+	RPH_AddMob(70, 1, 4, "Carlo Aurelius", 5)
+	RPH_AddMob(70, 1, 4, "Ravenholdt Assassin", 5)
+	RPH_AddMob(70, 1, 4, "Ravenholdt Guard", 5)
+
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
