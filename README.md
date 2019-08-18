@@ -2,7 +2,7 @@
 A World of Warcraft Classic addon to help you manage your reputation and Factions.
 
 ## Issues
-##### For any issues please refer to the main repository at [https://github.com/chawan/RepHelper](https://github.com/chawan/RepHelper)
+#### For any issues please refer to the main repository at [https://github.com/chawan/RepHelper](https://github.com/chawan/RepHelper)
 
 ## History/Base
 This addon is initially based on the out-dated addon Factionizer.
