@@ -50,6 +50,11 @@ function RPH_InitEnFactionGains()
 	zone.Westfall = 1436
 	zone.Wetlands = 1437
 
+	-- Battlegrounds
+	zone.Warsong_Gulch = 1460
+	zone.Arathi_Basin = 1461
+	zone.Alterac_Valley = 1459
+
 	if (RPH_IsAlliance) then
 		-- Stormwind
 		RPH_AddQuest(72, 4, 8, 1423, 25, {[6827] = 1})
@@ -142,12 +147,29 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 
 	-- Bloodsail Buccaners
-	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25)
-	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25)
-	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5)
-	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5)
-	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", "Arathi Highlands, Faldir's Cove")
-	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, "Badlands")
+	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25, Zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25, Zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5, Zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5, Zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", Zone.Arathi_Highlands)
+	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, Zone.Badlands)
+
+	-- Brood of Nozdormu
+	RPH_AddMob(910, 1, 4, "Anubisath Defender", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Anubisath Sentinel", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Obsidian Eradicator", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Anubisath Qiraj Lasher", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Vekniss Hive Crawler", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Vekniss Soldier", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Vekniss Stinger", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Vekniss Warrior", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 4, "Vekniss Wasp", 100, "Temple of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 8, "Most Bosses", 50, "Ruins of Ahn'Qiraj")
+	RPH_AddMob(910, 1, 8, "Ossirian", 100, "Ruins of Ahn'Qiraj")
+	RPH_AddQuest(910, 1, 8, 8595, 500, {[21229] = 1})
+	RPH_AddQuest(910, 1, 8, 8784, 1000, {[21230] = 1})
+	RPH_AddQuest(910, 1, 4, 8302, 200, {[20384] = 200})
+
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
