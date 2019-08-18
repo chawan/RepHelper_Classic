@@ -171,7 +171,16 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(910, 1, 4, 8302, 200, {[20384] = 200})
 
 	-- Cenarion Circle
-
+	RPH_AddMob(609, 4, 6, "Twilight Cultists", 1, zone.Silithus)
+	RPH_AddMob(609, 4, 7, "Twilight Flamereaver", 1, zone.Silithus)
+	RPH_AddMob(609, 4, 8, "Twilight Lord Everun", 5)
+	RPH_AddMob(609, 4, 6, "Twilight Keeper", 5)
+	RPH_AddQuest(609, 4, 8, 8362, 75, {[20513] = 3})
+	RPH_AddQuest(609, 4, 8, 8363, 250, {[20514] = 3})
+	RPH_AddQuest(609, 4, 8, 8364, 350, {[20515] = 3})
+	RPH_AddQuest(609, 4, 8, 8319, 100, {[20404] = 10})
+	RPH_AddQuest(609, 4, 8, 9338, 200, {[20802] = 1, [20800] = 1, [20801] = 1})
+	-- TODO: Confirm rep for Abyssal templar/duke/lord and total instance rep
 
 ---	local preGC = collectgarbage("count")
 	collectgarbage("collect")
