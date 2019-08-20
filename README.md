@@ -8,7 +8,7 @@ A World of Warcraft Classic addon to help you manage your reputation and Faction
 This addon is initially based on the out-dated addon Factionizer.
 
 Factionizer on Github: <https://github.com/gOOvER/Factionizer>  
-Factionizer on Curse: <https://mods.curse.com/addons/wow/factionizer>
+Factionizer on Curse: <https://curseforge.com/wow/addons/factionizer>
 
 Thank you to all those who contributed to the previous addon in any way.
 
@@ -25,8 +25,8 @@ Thank you to all those who contributed to the previous addon in any way.
 Contributions/Suggestions and bug reports/fixes to the addon are always welcome, to contribute you can make a [pull request](https://github.com/chawan/RepHelper_Classic/pulls) or simply open a [new issue](https://github.com/chawan/RepHelper/issues/) in the main project repository.
 
 ## Installation
-The easiest way to install this addon is via the [Twitch Client](https://mods.curse.com/client) by either searching in the client, or via the [Curse website](https://mods.curse.com/addons/wow/265375-rephelper)  
-If you want to manually install this addon, extract the contents in this directory: PATH\World of Warcraft\Interface\AddOns\
+The easiest way to install this addon is via the [Twitch App](https://twitch.tv/downloads) by either searching in the client, or via the [Curse website](https://curseforge.com/wow/addons/rephelper)  
+If you want to manually install this addon, extract the contents in this directory: PATH\World of Warcraft\\\_classic\_\\Interface\AddOns\
 
 ## Features
 This addon is made to help you reach Exalted with your factions by giving you calculated tips on how to obtain the rep most efficently.
