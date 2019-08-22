@@ -2606,14 +2606,22 @@ function RPH:DumpReputationChangesToChat(initOnly)
                         if ((barValue-RPH_StoredRep[name].origRep)>0) then
                             sign = "+"
                         end
-                        if (barValue > RPH_StoredRep[name].rep) then
-                            -- increased rep
-                            RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.stats, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
-                            --RPH:Print(RPH_GetFriendFactionStandingLabel(factionID, nextFriendThreshold))
-                            --RPH:Print(_G["FACTION_STANDING_LABEL"..standingID + 1])
-                        elseif (barValue < RPH_StoredRep[name].rep) then
-                            RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.stats, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
-                            -- decreased rep
+						if (barValue > RPH_StoredRep[name].rep) then
+							-- increased rep
+							if (standingID < 8) then
+								-- If below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
+								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.statsNextStanding, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1],barMax-barValue))
+							else 
+								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.stats, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
+							end
+						elseif (barValue < RPH_StoredRep[name].rep) then
+							-- decreased rep
+							if (standingID > 1) then
+								-- Only use the new format (Total: %s%d, Left to %s: %d) if we are above the lowest rank, otherwise use the normal format (Total: %s%d, Left: %d)
+								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.statsNextStanding, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax-barValue))
+							else 
+								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.stats, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
+							end
                         end
                         if (RPH_StoredRep[name].standingID ~= standingID) then
                             RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
