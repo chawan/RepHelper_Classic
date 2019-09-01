@@ -868,8 +868,20 @@ function RPH:Quest_Names(questIndex)
 		--RPH_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
 		--RPH_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
 
-		local quest = RPH_HiddenQuestTooltipTextLeft1:GetText()
-		RPH_HiddenQuestTooltip:Hide()
+		--local quest = RPH_HiddenQuestTooltipTextLeft1:GetText()
+		--RPH_HiddenQuestTooltip:Hide()
+
+		local quest = nil
+
+		if (type(questIndex) == "number") then
+			local localization = GetLocale()
+			if localization == "esMX" then localization = "esES" end
+			if localization == "zhTW" then localization = "zhCN" end
+			
+			quest = RPH_QuestDB[questIndex][localization]
+		else
+			quest = questIndex
+		end
 
 		if questIndex == 1 then
 			quest = RPH_TXT.cdq

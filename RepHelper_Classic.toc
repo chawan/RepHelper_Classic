@@ -10,6 +10,7 @@
 
 ## X-Curse-Project-ID: 265375
 
+questdb.lua
 content.lua
 mapping.lua
 locale.xml
