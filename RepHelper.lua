@@ -2591,7 +2591,9 @@ function RPH_ShowHelpToolTip(self, element)
 
 	GameTooltip:Show()
 end
-
+function tableSort(a, b)
+	return a.rep > b.rep
+end
 -----------------------------------
 -- _12_ reputation Changes to chat
 -----------------------------------
@@ -2603,7 +2605,9 @@ function RPH:DumpReputationChangesToChat(initOnly)
         local factionIndex, watchIndex, watchedIndex, watchName
         local name, standingID, barMin, barMax, barValue, isHeader, hasRep
         local RepRemains
-        local factionID
+		local factionID
+		
+		local factionsChanged = {}
 
         watchIndex = 0
         watchedIndex = 0
@@ -2630,6 +2634,8 @@ function RPH:DumpReputationChangesToChat(initOnly)
 							else 
 								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..RPH_TXT.stats, name, barValue-RPH_StoredRep[name].rep, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
 							end
+
+							table.insert( factionsChanged, {rep = barValue - RPH_StoredRep[name].rep, watchIndex = factionIndex, watchName = name})
 						elseif (barValue < RPH_StoredRep[name].rep) then
 							-- decreased rep
 							if (standingID > 1) then
@@ -2638,6 +2644,8 @@ function RPH:DumpReputationChangesToChat(initOnly)
 							else 
 								RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..RPH_TXT.stats, name, RPH_StoredRep[name].rep-barValue, sign, barValue-RPH_StoredRep[name].origRep, barMax-barValue))
 							end
+
+							table.insert( factionsChanged, {rep = RPH_StoredRep[name].rep -  barValue, watchIndex = factionIndex, watchName = name})
                         end
                         if (RPH_StoredRep[name].standingID ~= standingID) then
                             RPH:Print(RPH_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
@@ -2645,8 +2653,10 @@ function RPH:DumpReputationChangesToChat(initOnly)
 					else
 						if (barValue > RPH_StoredRep[name].rep) then
 							RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED, name, barValue-RPH_StoredRep[name].rep))
+							table.insert( factionsChanged, {rep = barValue - RPH_StoredRep[name].rep, watchIndex = factionIndex, watchName = name})
 						elseif (barValue < RPH_StoredRep[name].rep) then
 							RPH:Print(RPH_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED, name, RPH_StoredRep[name].rep-barValue))
+							table.insert( factionsChanged, {rep = barValue - RPH_StoredRep[name].rep, watchIndex = factionIndex, watchName = name})
 						end
 					end
                     if (RPH_Data.SwitchFactionBar) then
@@ -2665,7 +2675,14 @@ function RPH:DumpReputationChangesToChat(initOnly)
                 RPH_StoredRep[name].standingID = standingID
                 RPH_StoredRep[name].rep = barValue
             end
-        end
+		end
+
+		if (RPH_Data.SwitchFactionBar and RPH:TableSize(factionsChanged) > 1) then
+			table.sort(factionsChanged, tableSort)
+			watchIndex = factionsChanged[1].watchIndex
+			watchName = factionsChanged[1].watchName
+		end
+
         if (watchIndex > 0) then
             if (watchIndex ~= watchedIndex) then
                 if (not RPH_Data.SilentSwitch) then
@@ -2677,6 +2694,8 @@ function RPH:DumpReputationChangesToChat(initOnly)
         end
     end
 end
+
+
 
 function RPH:ClearSessionGain()
 	local factionIndex = GetSelectedFaction()
