@@ -114,9 +114,9 @@ function RPH_InitEnFactionGains()
 		RPH_AddGeneral(730, 4, 8, "Horde Players", 1, "Horde Players", "Kill Horde players to gain reputation")
 
 		-- Wintersaber Trainers
-		RPH_AddQuest(589, 4, 4, 4970, 50, {[12622] = 5, [12632] = 5})
+		RPH_AddQuest(589, 4, 8, 4970, 50, {[12622] = 5, [12623] = 5})
 		RPH_AddQuest(589, 4, 8, 5201, 50)
-		RPH_AddQuest(589, 6, 8, 5981, 75)
+		RPH_AddQuest(589, 6, 8, 5981, 50)
 
 	end
 
