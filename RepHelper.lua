@@ -1220,11 +1220,11 @@ function RPH_AddInstance(faction, from, to, name, rep, heroic)
 			add_count.limit = limit
 		end
 
-		add_count.level = (heroic and
-			 RPH_TXT.heroic
-		or
-			RPH_TXT.normal
-		)
+		--add_count.level = (heroic and
+		--	 RPH_TXT.heroic
+		--or
+		--	RPH_TXT.normal
+		--)
 		RPH:Debug("Added instance ["..name.."] for faction ["..faction.."] and standing [".._G["FACTION_STANDING_LABEL"..standing].."]")
 	end
 end
@@ -1855,7 +1855,7 @@ function RPH:BuildUpdateList() --xxx
 							FUL_I.index = index
 							FUL_I.belongsTo = nil
 							FUL_I.isShown = true
-							FUL_I.name = bul_name.." ("..fg_sid_x_d.level..")"
+							FUL_I.name = bul_name
 
 							FUL_I.tooltipHead = RPH_TXT.instanceHead
 							FUL_I.tooltipTip = RPH_TXT.instanceTip
