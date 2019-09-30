@@ -778,24 +778,28 @@ end
 -- _08_ Faction map --
 -----------------------------------
 function RPH:InitMapName(fimap)
-	--- fpt f_imn	RPH:Printtest(fimap,"","map 1")
 	local map
-	if fimap == 1 then
-		map = RPH_TXT.srfd
-	elseif fimap== 2 then
-		map = RPH_TXT.tbd
-	elseif fimap== 3 then
-		map = RPH_TXT.mnd
-	elseif fimap== 5 then
-		map = RPH_TXT.nci
-	elseif fimap == 6 then
-		map = RPH_TXT.hci
-	elseif not fimap then
-		map = " "
-	else
-		local mapName = C_Map.GetMapInfo(fimap).name
-		map = mapName
+
+	if (type(fimap) == "number") then
+		if fimap == 1 then
+			map = RPH_TXT.srfd
+		elseif fimap== 2 then
+			map = RPH_TXT.tbd
+		elseif fimap== 3 then
+			map = RPH_TXT.mnd
+		elseif fimap== 5 then
+			map = RPH_TXT.nci
+		elseif fimap == 6 then
+			map = RPH_TXT.hci
+		elseif not fimap then
+			map = " "
+		else
+			local mapName = C_Map.GetMapInfo(fimap).name
+			map = mapName
+		end
 	end
+	--- fpt f_imn	RPH:Printtest(fimap,"","map 1")
+
 	--- fpt f_imn	RPH:Printtest(fimap,"","map 2")
 	if not map then
 		map = fimap
@@ -2712,7 +2716,7 @@ function RPH_ChatFilter(chatFrame, event, ...) -- chatFrame = self
 	local msg, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...;
 
 	local skip = false
-	if (RPH_Data.WriteChatMessage and event) then
+	if (event) then
 
 		if (event == "CHAT_MSG_COMBAT_FACTION_CHANGE") then
 			skip = true

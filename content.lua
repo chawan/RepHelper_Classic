@@ -264,8 +264,8 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(749, 4, 7, "Pyroguard Emberseer", 50, "Upper Blackrock Spire")
 	RPH_AddMob(749, 4, 7, "Molten Giant, Ancient Core Hound, Lava Surger, Firelord", 20, "Molten Core")
 	RPH_AddMob(749, 4, 7, "Molten Destroyer and Lava Pack", 40, "Molten Core")
-	RPH_AddInstance(749, 4, 8, "Molten Core (All bosses)", 1050, "Molten Core")
-	RPH_AddInstance(749, 4, 8, "Molten Core (Ragnaros and Golemagg)", 350, "Molten Core")
+	RPH_AddInstance(749, 4, 8, "Molten Core (All bosses)", 1050, false)
+	RPH_AddInstance(749, 4, 8, "Molten Core (Ragnaros and Golemagg)", 350, false)
 
 	-- Ravenholdt
 	RPH_AddMob(349, 4, 6, "Syndicate Mobs", 5)
@@ -321,8 +321,7 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 25)
 	RPH_AddMob(576, 2, 8, "High Chief Winterfall", 25)
 	RPH_AddQuest(576, 2, 8, 8469, 50, {[21383] = 5})
-	RPH_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
-	RPH_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
+	RPH_AddQuest(576, 2, 8, "Feathers for Nafien / Grazle", 50, {[21377] = 5})
 	
 	-- Zandalar Tribe
 	RPH_AddQuest(270, 4, 8, 8238, 25, {[19701] = 1, [19702] = 1, [19703] = 1})
