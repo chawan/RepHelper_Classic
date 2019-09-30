@@ -878,11 +878,15 @@ function RPH:Quest_Names(questIndex)
 		local quest = nil
 
 		if (type(questIndex) == "number") then
-			local localization = GetLocale()
-			if localization == "esMX" then localization = "esES" end
-			if localization == "zhTW" then localization = "zhCN" end
-			
-			quest = RPH_QuestDB[questIndex][localization]
+			if (RPH_QuestDB[questIndex]) then
+				local localization = GetLocale()
+				if localization == "esMX" then localization = "esES" end
+				if localization == "zhTW" then localization = "zhCN" end
+				
+				quest = RPH_QuestDB[questIndex][localization]
+			else
+				quest = "Quest name not available. QuestID: "..questIndex
+			end
 		else
 			quest = questIndex
 		end
