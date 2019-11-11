@@ -57,38 +57,39 @@ function RPH_InitEnFactionGains()
 
 	if (RPH_IsAlliance) then
 		-- Stormwind
-		RPH_AddQuest(72, 4, 8, 1423, 25, {[6827] = 1})
-		RPH_AddQuest(72, 4, 8, 7796, 75, {[14047] = 20})
-		RPH_AddQuest(72, 4, 8, 8822, 5, {[21436] = 1})
-		RPH_AddQuest(72, 4, 8, 8836, 75, {[21436] = 10})
+		RPH_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1})
+		RPH_AddQuest(72, 4, 8, 7796, 50, {[14047] = 20})
+		--P5--RPH_AddQuest(72, 4, 8, 8836, 5, {[21436] = 1})
+		--P5--RPH_AddQuest(72, 4, 8, 8822, 75, {[21436] = 10})
 		
 		-- Darnassus
-		RPH_AddQuest(69, 4, 8, 7801, 75, {[14047] = 20})
+		RPH_AddQuest(69, 4, 8, 7801, 50, {[14047] = 20})
 		RPH_AddQuest(69, 4, 8, 3792, 25, {[11040] = 5})
-		RPH_AddQuest(69, 4, 8, 3803, 75, {[11040] = 10})
+		RPH_AddQuest(69, 4, 8, 3803, 50, {[11040] = 10})
 		RPH_AddQuest(69, 4, 8, 2750, 10, {[8646] = 1})
 		RPH_AddQuest(69, 4, 8, 2749, 10, {[8645] = 1})
 		RPH_AddQuest(69, 4, 8, 2748, 10, {[8644] = 1})
 		RPH_AddQuest(69, 4, 8, 2747, 10, {[8643] = 10})
-		RPH_AddQuest(69, 4, 8, 8830, 5, {[21436] = 1})
-		RPH_AddQuest(69, 4, 8, 8831, 75, {[21436] = 10})
+		--P5--RPH_AddQuest(69, 4, 8, 8830, 5, {[21436] = 1})
+		--P5--RPH_AddQuest(69, 4, 8, 8831, 75, {[21436] = 10})
 
 		-- Gnomergan Exiles
-		RPH_AddQuest(54, 4, 8, 7812, 75, {[14047] = 20})
-		RPH_AddQuest(54, 4, 8, 8812, 5, {[21436] = 1})
-		RPH_AddQuest(54, 4, 8, 8839, 75, {[21436] = 10})
+		RPH_AddQuest(54, 4, 8, 7812, 50, {[14047] = 20})
+		--P5--RPH_AddQuest(54, 4, 8, 8812, 5, {[21436] = 1})
+		--P5--RPH_AddQuest(54, 4, 8, 8839, 75, {[21436] = 10})
 
 		-- Ironforge
-		RPH_AddQuest(47, 4, 8, 7806, 75, {[14047] = 20})
-		RPH_AddQuest(47, 4, 8, 6941, 10, {[17503] = 1})
-		RPH_AddQuest(47, 4, 8, 6942, 10, {[17502] = 1})
-		RPH_AddQuest(47, 4, 8, 6943, 10, {[17504] = 1})
-		RPH_AddQuest(47, 4, 8, 7027, 10)
-		RPH_AddQuest(47, 4, 8, 6781, 10, {[17422] = 20})
-		RPH_AddQuest(47, 4, 8, 7026, 10, {[17643] = 1})
-		RPH_AddQuest(47, 4, 8, 6881, 10, {[17423] = 1})
-		RPH_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
-		RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
+		RPH_AddQuest(47, 4, 8, 7806, 50, {[14047] = 20})
+		--P3--RPH_AddQuest(47, 4, 8, 6941, 10, {[17503] = 1})
+		--P3--RPH_AddQuest(47, 4, 8, 6942, 10, {[17502] = 1})
+		--P3--RPH_AddQuest(47, 4, 8, 6943, 10, {[17504] = 1})
+		--P3--RPH_AddQuest(47, 4, 8, 7027, 10)
+		--P3--RPH_AddQuest(47, 4, 8, 6781, 10, {[17422] = 20})
+		--P3--RPH_AddQuest(47, 4, 8, 7026, 10, {[17643] = 1})
+		--P3--RPH_AddQuest(47, 4, 8, 6881, 10, {[17423] = 1})
+		--P3--RPH_AddQuest(47, 4, 8, "Crystal Cluster", 50, {[17423] = 5})
+		--P5--RPH_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
+		--P5--RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
 
 		-- Silverwing Sentinels
 		RPH_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
@@ -101,7 +102,7 @@ function RPH_InitEnFactionGains()
 		RPH_AddItems(509, 4, 8, 50, {[20559] = 3})
 		RPH_AddQuest(509, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 		RPH_AddQuest(509, 4, 8, 8105, 500)
-		RPH_AddQuest(509, 5, 8, 8114, 800)
+		RPH_AddQuest(509, 5, 8, 8114, 1000)
 
 		-- Stormpike Guard
 		-- TODO: Add the quests when I can find confirmed rep values
@@ -122,38 +123,39 @@ function RPH_InitEnFactionGains()
 
 	if (RPH_IsHorde) then
 		-- Darkspear Trolls
-		RPH_AddQuest(530, 4, 8, 7837, 75, {[14047] = 20})
+		RPH_AddQuest(530, 4, 8, 7837, 50, {[14047] = 20})
 		RPH_AddQuest(530, 4, 8, 2748, 10, {[8644] = 1})
-		RPH_AddQuest(530, 4, 8, 8816, 5, {[21438] = 1})
-		RPH_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10})
+		--P5--RPH_AddQuest(530, 4, 8, 8816, 5, {[21438] = 1})
+		--P5--RPH_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10})
 
 		-- Orgrimmar
+		RPH_AddQuest(76, 4, 8, 7832, 50, {[14047] = 20})
 		RPH_AddQuest(76, 4, 8, 822, 50, {[4898] = 5, [4897] = 1, [4896] = 1})
-		RPH_AddQuest(76, 4, 8, 6825, 10, {[17326] = 1})
-		RPH_AddQuest(76, 4, 8, 6826, 10, {[17327] = 1})
-		RPH_AddQuest(76, 4, 8, 6827, 10, {[17328] = 1})
-		RPH_AddQuest(76, 4, 8, 6801, 10, {[17306] = 1})
-		RPH_AddQuest(76, 4, 8, 6741, 10, {[17422] = 20})
-		RPH_AddQuest(76, 4, 8, 7001, 10)
-		RPH_AddQuest(76, 4, 8, 7002, 10, {[17642] = 1})
-		RPH_AddQuest(76, 4, 8, 7385, 50, {[17306] = 5})
-		RPH_AddQuest(76, 4, 8, 6985, 25, {[17522] = 10})
-		RPH_AddQuest(76, 4, 8, 8815, 5, {[21438] = 1})
-		RPH_AddQuest(76, 4, 8, 8823, 75, {[21438] = 10})
+		--P3--RPH_AddQuest(76, 4, 8, 6825, 10, {[17326] = 1})
+		--P3--RPH_AddQuest(76, 4, 8, 6826, 10, {[17327] = 1})
+		--P3--RPH_AddQuest(76, 4, 8, 6827, 10, {[17328] = 1})
+		--P3--RPH_AddQuest(76, 4, 8, 6801, 10, {[17306] = 1})
+		--P3--RPH_AddQuest(76, 4, 8, 6741, 10, {[17422] = 20})
+		--P3--RPH_AddQuest(76, 4, 8, 7001, 10)
+		--P3--RPH_AddQuest(76, 4, 8, 7002, 10, {[17642] = 1})
+		--P3--RPH_AddQuest(76, 4, 8, 7385, 50, {[17306] = 5})
+		--P3--RPH_AddQuest(76, 4, 8, 6985, 25, {[17522] = 10})
+		--P5--RPH_AddQuest(76, 4, 8, 8815, 5, {[21438] = 1})
+		--P5--RPH_AddQuest(76, 4, 8, 8823, 75, {[21438] = 10})
 
 		-- Thunder Bluff
-		RPH_AddQuest(81, 4, 8, 7825, 75, {[14047] = 20})
+		RPH_AddQuest(81, 4, 8, 7825, 50, {[14047] = 20})
 		RPH_AddQuest(81, 4, 8, 2747, 10, {[8643] = 1})
 		RPH_AddQuest(81, 4, 8, 2749, 10, {[8645] = 1})
 		RPH_AddQuest(81, 4, 8, 2750, 10, {[8646] = 1})
 		RPH_AddQuest(81, 4, 8, 3804, 75, {[11040] = 10})
-		RPH_AddQuest(81, 4, 8, 8818, 5, {[21438] = 1})
-		RPH_AddQuest(81, 4, 8, 8825, 75, {[21438] = 1})
+		--P5--RPH_AddQuest(81, 4, 8, 8818, 5, {[21438] = 1})
+		--P5--RPH_AddQuest(81, 4, 8, 8825, 75, {[21438] = 1})
 
 		-- Undercity
-		RPH_AddQuest(68, 4, 8, 7817, 75, {[14047] = 20})
-		RPH_AddQuest(68, 4, 8, 8817, 5, {[21438] = 1})
-		RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
+		RPH_AddQuest(68, 4, 8, 7819, 50, {[14047] = 20})
+		--P5--RPH_AddQuest(68, 4, 8, 8817, 5, {[21438] = 1})
+		--P5--RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
 
 		-- Warsong Outriders
 		RPH_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
@@ -166,7 +168,7 @@ function RPH_InitEnFactionGains()
 		RPH_AddItems(510, 4, 8, 50, {[20559] = 3})
 		RPH_AddQuest(510, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 		RPH_AddQuest(510, 4, 8, 8120, 500)
-		RPH_AddQuest(510, 5, 8, 8121, 800)
+		RPH_AddQuest(510, 5, 8, 8121, 1000)
 
 		-- Frowstwolf Clan
 		-- TODO: Add the quests when I can find confirmed rep values
