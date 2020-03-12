@@ -97,12 +97,12 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(890, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 
 		-- League of Arathor
-		RPH_AddGeneral(509, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 100 Resources", "For every 100 resources your team collects you gain 50 reputation")
+		RPH_AddGeneral(509, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 200 Resources", "For every 200 resources your team collects you gain 10 reputation")
 		RPH_AddGeneral(509, 4, 8, "Arathi Basin win (2000 Resources)", 100, "Arathi Basin win (2000 Resources)", "If your team wins with 2000 resources you will earn a total of 100 reputation")
 		RPH_AddItems(509, 4, 8, 50, {[20559] = 3})
 		RPH_AddQuest(509, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
-		RPH_AddQuest(509, 4, 8, 8105, 500)
-		RPH_AddQuest(509, 5, 8, 8114, 1000)
+		--RPH_AddQuest(509, 4, 8, 8105, 200)
+		RPH_AddQuest(509, 5, 8, 8114, 800)
 
 		-- Stormpike Guard
 		-- TODO: Add the quests when I can find confirmed rep values
@@ -163,12 +163,12 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(889, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 		
 		-- The Defilers
-		RPH_AddGeneral(510, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 100 Resources", "For every 100 resources your team collects you gain 50 reputation")
+		RPH_AddGeneral(510, 4, 8, "Arathi Basin collect 200 Resources", 10, "Collect 200 Resources", "For every 200 resources your team collects you gain 10 reputation")
 		RPH_AddGeneral(510, 4, 8, "Arathi Basin win (2000 Resources)", 100, "Arathi Basin win (2000 Resources)", "If your team wins with 2000 resources you will earn a total of 100 reputation")
 		RPH_AddItems(510, 4, 8, 50, {[20559] = 3})
 		RPH_AddQuest(510, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
-		RPH_AddQuest(510, 4, 8, 8120, 500)
-		RPH_AddQuest(510, 5, 8, 8121, 1000)
+		--RPH_AddQuest(510, 4, 8, 8120, 200)
+		RPH_AddQuest(510, 5, 8, 8121, 800)
 
 		-- Frowstwolf Clan
 		-- TODO: Add the quests when I can find confirmed rep values
