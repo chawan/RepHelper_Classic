@@ -224,7 +224,7 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(910, 1, 4, 8302, 200, {[20384] = 200})
 
 	-- Cenarion Circle 
-	--TODO: Confirm rep for Abyssal templar/duke/lord and add total instance rep
+	--TODO: --P5-- Confirm rep for Abyssal templar/duke/lord and add total instance rep
 	RPH_AddMob(609, 4, 6, "Twilight Cultists", 1, zone.Silithus)
 	RPH_AddMob(609, 4, 7, "Twilight Flamereaver", 1, zone.Silithus)
 	RPH_AddMob(609, 4, 8, "Twilight Lord Everun", 5)
@@ -285,14 +285,28 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(809, 4, 8, "Class Quests", 500)
 
 	-- Steamwheedle Cartel
+	-- TODO: Add the Dire Maul quests as well, finding mixed values on awarded reputation so need confirmation
 	-- Everlook
 	RPH_AddQuest(577, 1, 4, 9266, 500, {[14047] = 40, [3857] = 4})
+	RPH_AddQuest(577, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
+	RPH_AddQuest(577, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
+	RPH_AddQuest(577, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
 	-- Gadgetzan
 	RPH_AddQuest(369, 1, 4, 9268, 500, {[4338] = 40, [3466] = 4})
+	RPH_AddQuest(369, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
+	RPH_AddQuest(369, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
+	RPH_AddQuest(369, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
 	-- Ratchet
 	RPH_AddQuest(470, 1, 4, 9267, 500, {[2589] = 40, [3371] = 4})
+	RPH_AddQuest(470, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
+	RPH_AddQuest(470, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
+	RPH_AddQuest(470, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
 	-- Booty Bay
 	RPH_AddQuest(21, 1, 4, 9259, 500, {[4306] = 40, [2604] = 4})
+	RPH_AddQuest(21, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
+	RPH_AddQuest(21, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
+	RPH_AddQuest(21, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
+
 
 	-- Syndicate
 	RPH_AddMob(70, 1, 4, "Myrokos Silentform", 25)
