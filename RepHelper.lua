@@ -2603,7 +2603,7 @@ end
 -----------------------------------
 function RPH:DumpReputationChangesToChat(initOnly)
 	if not RPH_StoredRep then RPH_StoredRep = {} end
-	
+	-- TODO: Remove the default message print from this funcion and just disable the filter to use Blizzard's default chat messasge
 	if (RPH_OnLoadingScreen == false) then
         local numFactions = GetNumFactions();
         local factionIndex, watchIndex, watchedIndex, watchName
