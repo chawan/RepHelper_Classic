@@ -92,7 +92,7 @@ function RPH_InitEnFactionGains()
 		--P5--RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
 
 		-- Silverwing Sentinels
-		RPH_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
+		RPH_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 35 reputation")
 		RPH_AddItems(890, 4, 8, 50, {[20558] = 3})
 		RPH_AddQuest(890, 4, 8, 8385, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 
@@ -158,7 +158,7 @@ function RPH_InitEnFactionGains()
 		--P5--RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
 
 		-- Warsong Outriders
-		RPH_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
+		RPH_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 35 reputation")
 		RPH_AddItems(889, 4, 8, 50, {[20558] = 3})
 		RPH_AddQuest(889, 4, 8, 8388, 100, {[20558] = 3, [20559] = 3, [20560] = 3})
 		
@@ -282,7 +282,7 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(809, 4, 8, 7485, 500, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
 	RPH_AddQuest(809, 4, 8, 7483, 500, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2})
 	RPH_AddQuest(809, 4, 8, 7484, 500, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2})
-	RPH_AddQuest(809, 4, 8, "Class Quests", 500)
+	RPH_AddQuest(809, 4, 8, "Class trinket quest, can only be completed once.", 500)
 
 	-- Steamwheedle Cartel
 	-- TODO: Add the Dire Maul quests as well, finding mixed values on awarded reputation so need confirmation
