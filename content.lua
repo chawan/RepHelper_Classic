@@ -200,12 +200,14 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 
 	-- Bloodsail Buccaners
-	RPH_AddMob(87, 4, 8, "Booty Bay Bruiser", 25, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Booty Bay Elite", 25, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Baron Revilgaz", 5, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 8, "Blackwater Deckhand", 5, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 4, 6, "Pirates at Faldir's Cove", zone.Arathi_Highlands)
-	RPH_AddMob(87, 4, 7, "Jazzrik and Rigglefuzz", 5, zone.Badlands)
+	RPH_AddMob(87, 1, 8, "Booty Bay Bruiser", 25, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 1, 8, "Booty Bay Elite", 25, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 1, 8, "Baron Revilgaz", 5, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 1, 8, "Blackwater Deckhand", 5, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 1, 6, "Captain Steelgut", 25, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "First Mate Nilzlix", 25, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "Pirates at Faldir's Cove", 5, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 7, "Jazzrik and Rigglefuzz", 5, zone.Badlands)
 
 	-- Brood of Nozdormu
 	RPH_AddMob(910, 1, 4, "Anubisath Defender", 100, "Temple of Ahn'Qiraj")
