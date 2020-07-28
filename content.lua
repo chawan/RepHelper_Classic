@@ -59,8 +59,8 @@ function RPH_InitEnFactionGains()
 		-- Stormwind
 		RPH_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1})
 		RPH_AddQuest(72, 4, 8, 7796, 50, {[14047] = 20})
-		--P5--RPH_AddQuest(72, 4, 8, 8836, 5, {[21436] = 1})
-		--P5--RPH_AddQuest(72, 4, 8, 8822, 75, {[21436] = 10})
+		RPH_AddQuest(72, 4, 8, 8836, 5, {[21436] = 1})
+		RPH_AddQuest(72, 4, 8, 8822, 75, {[21436] = 10})
 		
 		-- Darnassus
 		RPH_AddQuest(69, 4, 8, 7801, 50, {[14047] = 20})
@@ -70,13 +70,13 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(69, 4, 8, 2749, 10, {[8645] = 1})
 		RPH_AddQuest(69, 4, 8, 2748, 10, {[8644] = 1})
 		RPH_AddQuest(69, 4, 8, 2747, 10, {[8643] = 10})
-		--P5--RPH_AddQuest(69, 4, 8, 8830, 5, {[21436] = 1})
-		--P5--RPH_AddQuest(69, 4, 8, 8831, 75, {[21436] = 10})
+		RPH_AddQuest(69, 4, 8, 8830, 5, {[21436] = 1})
+		RPH_AddQuest(69, 4, 8, 8831, 75, {[21436] = 10})
 
 		-- Gnomergan Exiles
 		RPH_AddQuest(54, 4, 8, 7812, 50, {[14047] = 20})
-		--P5--RPH_AddQuest(54, 4, 8, 8812, 5, {[21436] = 1})
-		--P5--RPH_AddQuest(54, 4, 8, 8839, 75, {[21436] = 10})
+		RPH_AddQuest(54, 4, 8, 8812, 5, {[21436] = 1})
+		RPH_AddQuest(54, 4, 8, 8839, 75, {[21436] = 10})
 
 		-- Ironforge
 		RPH_AddQuest(47, 4, 8, 7806, 50, {[14047] = 20})
@@ -88,8 +88,8 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(47, 4, 8, 7026, 10, {[17643] = 1})
 		RPH_AddQuest(47, 4, 8, 6881, 10, {[17423] = 1})
 		RPH_AddQuest(47, 4, 8, "Crystal Cluster", 50, {[17423] = 5})
-		--P5--RPH_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
-		--P5--RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
+		RPH_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
+		RPH_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
 
 		-- Silverwing Sentinels
 		RPH_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 35 reputation")
@@ -125,8 +125,8 @@ function RPH_InitEnFactionGains()
 		-- Darkspear Trolls
 		RPH_AddQuest(530, 4, 8, 7837, 50, {[14047] = 20})
 		RPH_AddQuest(530, 4, 8, 2748, 10, {[8644] = 1})
-		--P5--RPH_AddQuest(530, 4, 8, 8816, 5, {[21438] = 1})
-		--P5--RPH_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10})
+		RPH_AddQuest(530, 4, 8, 8816, 5, {[21438] = 1})
+		RPH_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10})
 
 		-- Orgrimmar
 		RPH_AddQuest(76, 4, 8, 7832, 50, {[14047] = 20})
@@ -140,8 +140,8 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(76, 4, 8, 7002, 10, {[17642] = 1})
 		RPH_AddQuest(76, 4, 8, 7385, 50, {[17306] = 5})
 		RPH_AddQuest(76, 4, 8, 6985, 25, {[17522] = 10})
-		--P5--RPH_AddQuest(76, 4, 8, 8815, 5, {[21438] = 1})
-		--P5--RPH_AddQuest(76, 4, 8, 8823, 75, {[21438] = 10})
+		RPH_AddQuest(76, 4, 8, 8815, 5, {[21438] = 1})
+		RPH_AddQuest(76, 4, 8, 8823, 75, {[21438] = 10})
 
 		-- Thunder Bluff
 		RPH_AddQuest(81, 4, 8, 7825, 50, {[14047] = 20})
@@ -149,13 +149,13 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(81, 4, 8, 2749, 10, {[8645] = 1})
 		RPH_AddQuest(81, 4, 8, 2750, 10, {[8646] = 1})
 		RPH_AddQuest(81, 4, 8, 3804, 75, {[11040] = 10})
-		--P5--RPH_AddQuest(81, 4, 8, 8818, 5, {[21438] = 1})
-		--P5--RPH_AddQuest(81, 4, 8, 8825, 75, {[21438] = 1})
+		RPH_AddQuest(81, 4, 8, 8818, 5, {[21438] = 1})
+		RPH_AddQuest(81, 4, 8, 8825, 75, {[21438] = 1})
 
 		-- Undercity
 		RPH_AddQuest(68, 4, 8, 7819, 50, {[14047] = 20})
-		--P5--RPH_AddQuest(68, 4, 8, 8817, 5, {[21438] = 1})
-		--P5--RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
+		RPH_AddQuest(68, 4, 8, 8817, 5, {[21438] = 1})
+		RPH_AddQuest(68, 4, 8, 8826, 75, {[21438] = 10})
 
 		-- Warsong Outriders
 		RPH_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 35, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 35 reputation")
