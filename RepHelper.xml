@@ -836,24 +836,16 @@
 		</Scripts>							
 	</FontString>								
 									
-	<Frame name="RPH_OptionsFrame" hidden="true" parent="ReputationFrame">								
+	<Frame name="RPH_OptionsFrame" hidden="true" parent="ReputationFrame" inherits="BackdropTemplate">								
 		<Size x="450" y="350" />							
 		<Anchors>							
 			<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">						
-				<Offset x="-35" y="-11" />					
+				<Offset x="-30" y="-13" />					
 			</Anchor>						
 		</Anchors>							
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">							
-			<BackgroundInsets>						
-				<AbsInset left="11" right="12" top="12" bottom="11" />					
-			</BackgroundInsets>						
-			<TileSize>						
-				<AbsValue val="32" />					
-			</TileSize>						
-			<EdgeSize>						
-				<AbsValue val="32" />					
-			</EdgeSize>						
-		</Backdrop>							
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global" />
+		</KeyValues>							
 		<Layers>							
 			<Layer level="ARTWORK">						
 				<!-->Title box<-->					
