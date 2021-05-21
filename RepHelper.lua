@@ -1114,7 +1114,7 @@ function RPH_AddMob(faction, from, to, name, rep, zone, limit)
 	end
 end
 
-function RPH_AddQuest(faction, from, to, name, rep, itemList, limitType)
+function RPH_AddQuest(faction, from, to, name, rep, itemList, limitType, repeatable)
 
 --[[--	if not faction then return end
 	if not from then return end
@@ -1158,6 +1158,11 @@ function RPH_AddQuest(faction, from, to, name, rep, itemList, limitType)
 		add_count.name = name
 		add_count.rep = rep
 		add_count.maxStanding = to
+		if (repeatable == nil) then
+			add_count.repeatable = true
+		else
+			add_count.repeatable = repeatable
+		end
 		if (itemList) then
 			if (itemList == "nil") then
 				add_count.profession = limitType
@@ -1864,6 +1869,14 @@ function RPH:BuildUpdateList() --xxx
 
 							FUL_I.tooltipHead = RPH_TXT.instanceHead
 							FUL_I.tooltipTip = RPH_TXT.instanceTip
+							
+							if (fg_sid_x_d.repeatable) then
+								FUL_I.times = math.ceil(toDo).."x"
+								FUL_I.tooltipTip = RPH_TXT.questTip
+							else
+								FUL_I.times = math.ceil(1).."x"
+								FUL_I.tooltipTip = RPH_TXT.questTipNonRepeatable
+							end
 
 							FUL_I.tooltipDetails = {}
 							local FUL_I_TD = FUL_I.tooltipDetails
@@ -2037,8 +2050,10 @@ function RPH:BuildUpdateList() --xxx
 							FUL_I_TD[x], x = RPH:Update_Tooltip(x, RPH_TXT.reputation, FUL_I.rep)
 							FUL_I_TD[x], x = RPH:Update_Tooltip(x, RPH_TXT.toDo, FUL_I.times)
 							if (not FUL_I.suppress) then
-								sum = sum + fg_sid_x_d.rep
-								count = count + 1
+								if (fg_sid_x_d.repeatable) then
+									sum = sum + fg_sid_x_d.rep
+									count = count + 1
+								end
 							end
 
 							if (fg_sid_x_d.items) then
