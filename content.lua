@@ -200,13 +200,16 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 
 	-- Bloodsail Buccaners
+	RPH_AddMob(87, 1, 6, "Booty Bay innkeepers/traders", 5, zone.Stranglethorn_Vale)
 	RPH_AddMob(87, 1, 6, "Booty Bay Bruiser", 25, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 1, 8, "Booty Bay Elite", 25, zone.Stranglethorn_Vale)
+	RPH_AddMob(87, 1, 6, "Booty Bay Elite", 25, zone.Stranglethorn_Vale)
 	RPH_AddMob(87, 1, 8, "Baron Revilgaz", 5, zone.Stranglethorn_Vale)
-	RPH_AddMob(87, 1, 8, "Blackwater Deckhand", 5, zone.Stranglethorn_Vale)
 	RPH_AddMob(87, 1, 6, "Captain Steelgut", 25, zone.Arathi_Highlands)
-	RPH_AddMob(87, 1, 6, "First Mate Nilzlix", 25, zone.Arathi_Highlands)
-	RPH_AddMob(87, 1, 6, "Pirates at Faldir's Cove", 5, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "First Mate Nilzlix", 5, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "Doctor Draxlegauge", 5, zone.Arathi_Highlands) -- Might only give 1 rep.
+	RPH_AddMob(87, 1, 2, "Shakes O'Breen", 5, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "Blackwater Deckhand", 5, zone.Arathi_Highlands)
+	RPH_AddMob(87, 1, 6, "Deckhand Moishe", 5, zone.Arathi_Highlands)
 	RPH_AddMob(87, 1, 7, "Jazzrik", 5, zone.Badlands)
 
 	-- Brood of Nozdormu
