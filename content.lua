@@ -370,6 +370,31 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(270, 4, 8, 75, "Destoy a Bijou at the Altar of Zanza")
 	RPH_AddItems(270, 4, 8, 50, {[19858] = 1})
 	RPH_AddInstance(270, 4, 8, "Zul'Gurub", 2750)
+	
+	-- Magram Clan Centaur
+	RPH_AddMob(93, 1, 5, "Khan Shaka", 25)
+	RPH_AddMob(93, 1, 6, "Gelkis Mauler", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Marauder", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Rumbler", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Outrunner", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Stamper", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Windchaser", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Scout", 20)
+	RPH_AddMob(93, 1, 6, "Gelkis Earthcaller", 20)
+
+	-- Gelkis Clan Centaur
+	RPH_AddMob(92, 1, 4, "Warug's Bodyguard", 5)
+	RPH_AddMob(92, 1, 5, "Khan Jehn", 25)
+	RPH_AddMob(92, 1, 6, "Magram Bonepaw", 25)
+	RPH_AddMob(92, 1, 6, "Magram Scout", 20)
+	RPH_AddMob(92, 1, 6, "Magram Wrangler", 20)
+	RPH_AddMob(92, 1, 6, "Magram Windchaser", 20)
+	RPH_AddMob(92, 1, 6, "Magram Stormer", 20)
+	RPH_AddMob(92, 1, 6, "Magram Marauder", 20)
+	RPH_AddMob(92, 1, 6, "Magram Mauler", 20)
+	RPH_AddMob(92, 1, 6, "Magram Outrunner", 20)
+	RPH_AddMob(92, 1, 6, "Magram Pack Runner", 20)
+	
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
 ---	print("Collected " .. (preGC-collectgarbage("count")) .. " kB of garbage RPH");
