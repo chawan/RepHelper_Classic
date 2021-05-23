@@ -11,7 +11,6 @@ RPH_ToExalted[1] = 48000;	-- working on Hated -> Hostile, base offset 21k+12k+6k
 RPH_ToExalted[2] = 45000;	-- working on Hostile -> Unfriendly, base offset 21k+12k+6k+3k+3k
 RPH_ToExalted[3] = 42000;	-- working on Unfriendly -> Neutral, base offset 21k+12k+6k+3k
 RPH_ToExalted[4] = 39000;	-- working on Neutral -> Friendly, base offset 21k+12k+6k
-RPH_ToExalted[4.5] = 36999;	-- working on Neutral -> Friendly, base offset 21k+12k+3999
 RPH_ToExalted[5] = 33000;	-- working on Friendly -> Honored, base offset 21k+12k
 RPH_ToExalted[6] = 21000;	-- working on Honored -> Revered, base offset 21k
 RPH_ToExalted[7] = 0;	-- working on Revered -> Exalted, so no base offset
