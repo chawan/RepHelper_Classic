@@ -1869,14 +1869,7 @@ function RPH:BuildUpdateList() --xxx
 
 							FUL_I.tooltipHead = RPH_TXT.instanceHead
 							FUL_I.tooltipTip = RPH_TXT.instanceTip
-							
-							if (fg_sid_x_d.repeatable) then
-								FUL_I.times = math.ceil(toDo).."x"
-								FUL_I.tooltipTip = RPH_TXT.questTip
-							else
-								FUL_I.times = math.ceil(1).."x"
-								FUL_I.tooltipTip = RPH_TXT.questTipNonRepeatable
-							end
+
 
 							FUL_I.tooltipDetails = {}
 							local FUL_I_TD = FUL_I.tooltipDetails
@@ -2035,6 +2028,14 @@ function RPH:BuildUpdateList() --xxx
 
 							FUL_I.tooltipHead = RPH_TXT.questHead
 							FUL_I.tooltipTip = RPH_TXT.questTip
+
+							if (fg_sid_x_d.repeatable) then
+								FUL_I.times = math.ceil(toDo).."x"
+								FUL_I.tooltipTip = RPH_TXT.questTip
+							else
+								FUL_I.times = math.ceil(1).."x"
+								FUL_I.tooltipTip = RPH_TXT.questTipNonRepeatable
+							end
 
 							FUL_I.faction = faction
 							FUL_I.canSuppress = true
