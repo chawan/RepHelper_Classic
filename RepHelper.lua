@@ -2017,7 +2017,6 @@ function RPH:BuildUpdateList() --xxx
 							RPH_UpdateList[index] = {}
 							local FUL_I = RPH_UpdateList[index]
 							FUL_I.type = RPH_TXT.questShort
-							FUL_I.times = math.ceil(toDo).."x"
 							FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
 							FUL_I.index = index
 							FUL_I.belongsTo = nil
@@ -2025,9 +2024,7 @@ function RPH:BuildUpdateList() --xxx
 							local bul_name = RPH:Quest_Names(fg_sid_x_d.name)
 							FUL_I.name = bul_name
 							FUL_I.originalName = FUL_I.name
-
 							FUL_I.tooltipHead = RPH_TXT.questHead
-							FUL_I.tooltipTip = RPH_TXT.questTip
 
 							if (fg_sid_x_d.repeatable) then
 								FUL_I.times = math.ceil(toDo).."x"
