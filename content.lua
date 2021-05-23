@@ -57,7 +57,7 @@ function RPH_InitEnFactionGains()
 
 	if (RPH_IsAlliance) then
 		-- Stormwind
-		RPH_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1}, nil, false)
+		RPH_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1})
 		RPH_AddQuest(72, 4, 8, 7796, 50, {[14047] = 20})
 		RPH_AddQuest(72, 4, 8, 8836, 5, {[21436] = 1})
 		RPH_AddQuest(72, 4, 8, 8822, 75, {[21436] = 10})
