@@ -143,7 +143,7 @@ function RPH_InitEnFactionGains()
 		
 		-- Honor Hold
 		-- TODO: Add more quests/instances and add quest(s) to questdb.lua
-		RPH_AddQuest(946, 4, 8, "The Fall of Magtheridon", 1000, {"Magtheridon's Head" = 1}, nill, false)
+		RPH_AddQuest(946, 4, 8, "The Fall of Magtheridon", 1000, {["Magtheridon's Head"] = 1}, nill, false)
 	end
 
 	if (RPH_IsHorde) then
@@ -214,8 +214,8 @@ function RPH_InitEnFactionGains()
 		
 		-- Thrallmar
 		-- TODO: Add more quests/instances and add quest(s) to questdb.lua
-		RPH_AddQuest(947, 4, 8, "The Foot of the Citadel", 1000, {"The Head of the Hand of Kargath" = 1}, nill, false)
-		RPH_AddQuest(947, 4, 8, "The Fall of Magtheridon", 1000, {"Magtheridon's Head" = 1}, nill, false)
+		RPH_AddQuest(947, 4, 8, "The Foot of the Citadel", 1000, {["The Head of the Hand of Kargath"] = 1}, nill, false)
+		RPH_AddQuest(947, 4, 8, "The Fall of Magtheridon", 1000, {["Magtheridon's Head"] = 1}, nill, false)
 	end
 
 	-- Argent Dawn
@@ -467,11 +467,11 @@ function RPH_InitEnFactionGains()
 	
 	-- Cenarion Expedition
 	-- TODO: Add turn-in quests / Dailies / Dungeons (and add quest to questdb.lua)
-	RPH_AddQuest(942, 4, 8, "Identify Plant Parts", 250, {"Unidentified Plant Parts" = 10})
+	RPH_AddQuest(942, 4, 8, "Identify Plant Parts", 250, {["Unidentified Plant Parts"] = 10})
 
 	-- Lower City
 	-- TODO: Add turn-in quests / Dailies (and add quest to questdb.lua)
-	RPH_AddQuest(1011, 4, 5, "More Feathers", 250, {"Arakkoa Feather" = 30})
+	RPH_AddQuest(1011, 4, 5, "More Feathers", 250, {["Arakkoa Feather"] = 30})
 	RPH_AddInstance(1011, 4, 5, "Auchenai Crypts", 750, false)
 	RPH_AddInstance(1011, 4, 5, "Sethekk Halls", 1250, false)
 	RPH_AddInstance(1011, 4, 8, "Auchenai Crypts", 750, true)
