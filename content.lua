@@ -140,7 +140,10 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(930, 4, 8, 10356, 350, {[4338] = 60}, nill, false)
 		RPH_AddQuest(930, 4, 8, 10357, 350, {[14047] = 60}, nill, false)
 		RPH_AddQuest(930, 4, 8, 10358, 75, {[14047] = 20})
-
+		
+		-- Honor Hold
+		-- TODO: Add more quests/instances and add quest(s) to questdb.lua
+		RPH_AddQuest(946, 4, 8, "The Fall of Magtheridon", 1000, {"Magtheridon's Head" = 1}, nill, false)
 	end
 
 	if (RPH_IsHorde) then
@@ -208,6 +211,11 @@ function RPH_InitEnFactionGains()
 		RPH_AddQuest(911, 4, 8, 10361, 350, {[4338] = 60}, nill, false)
 		RPH_AddQuest(911, 4, 8, 10362, 350, {[14047] = 60}, nill, false)
 		RPH_AddQuest(911, 4, 8, 10363, 75, {[14047] = 20})
+		
+		-- Thrallmar
+		-- TODO: Add more quests/instances and add quest(s) to questdb.lua
+		RPH_AddQuest(947, 4, 8, "The Foot of the Citadel", 1000, {"The Head of the Hand of Kargath" = 1}, nill, false)
+		RPH_AddQuest(947, 4, 8, "The Fall of Magtheridon", 1000, {"Magtheridon's Head" = 1}, nill, false)
 	end
 
 	-- Argent Dawn
@@ -456,6 +464,35 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(92, 1, 6, "Magram Mauler", 20, zone.Desolace)
 	RPH_AddMob(92, 1, 6, "Magram Outrunner", 20, zone.Desolace)
 	RPH_AddMob(92, 1, 6, "Magram Pack Runner", 20, zone.Desolace)
+	
+	-- Cenarion Expedition
+	-- TODO: Add turn-in quests / Dailies / Dungeons (and add quest to questdb.lua)
+	RPH_AddQuest(942, 4, 8, "Identify Plant Parts", 250, {"Unidentified Plant Parts" = 10})
+
+	-- Lower City
+	-- TODO: Add turn-in quests / Dailies (and add quest to questdb.lua)
+	RPH_AddQuest(1011, 4, 5, "More Feathers", 250, {"Arakkoa Feather" = 30})
+	RPH_AddInstance(1011, 4, 5, "Auchenai Crypts", 750, false)
+	RPH_AddInstance(1011, 4, 5, "Sethekk Halls", 1250, false)
+	RPH_AddInstance(1011, 4, 8, "Auchenai Crypts", 750, true)
+	RPH_AddInstance(1011, 4, 8, "Sethekk Halls", 1250, true)
+	RPH_AddInstance(1011, 4, 8, "Shadow Labyrinth", 2000, false)
+	RPH_AddInstance(1011, 4, 8, "Shadow Labyrinth", 2000, true)
+
+	-- The Sha'tar
+	-- TODO: Add turn-in quests (and add quest to questdb.lua)
+	RPH_AddInstance(935, 4, 8, "The Mechanar", 1300, false)
+	RPH_AddInstance(935, 4, 8, "The Botanica", 2400, false)
+	RPH_AddInstance(935, 4, 8, "The Arcatraz", 1900, false)
+	RPH_AddInstance(935, 4, 8, "The Mechanar", 2200, true)
+	RPH_AddInstance(935, 4, 8, "The Botanica", 2400, true)
+	RPH_AddInstance(935, 4, 8, "The Arcatraz", 2700, true)
+
+	-- Keepers of Time
+	RPH_AddInstance(989, 4, 8, "Old Hillsbrad Foothills", 1300, false)
+	RPH_AddInstance(989, 4, 8, "Black Morass", 1200, false)
+	RPH_AddInstance(989, 4, 8, "Old Hillsbrad Foothills", 2800, true)
+	RPH_AddInstance(989, 4, 8, "Black Morass", 1900, true)
 	
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
