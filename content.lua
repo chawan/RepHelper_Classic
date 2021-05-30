@@ -474,25 +474,25 @@ function RPH_InitEnFactionGains()
 	RPH_AddQuest(1011, 4, 5, "More Feathers", 250, {["Arakkoa Feather"] = 30})
 	RPH_AddInstance(1011, 4, 5, "Auchenai Crypts", 750, false)
 	RPH_AddInstance(1011, 4, 5, "Sethekk Halls", 1250, false)
-	RPH_AddInstance(1011, 4, 8, "Auchenai Crypts", 750, true)
-	RPH_AddInstance(1011, 4, 8, "Sethekk Halls", 1250, true)
+	RPH_AddInstance(1011, 4, 8, "Auchenai Crypts (heroic)", 750, true)
+	RPH_AddInstance(1011, 4, 8, "Sethekk Halls (heroic)", 1250, true)
 	RPH_AddInstance(1011, 4, 8, "Shadow Labyrinth", 2000, false)
-	RPH_AddInstance(1011, 4, 8, "Shadow Labyrinth", 2000, true)
+	RPH_AddInstance(1011, 4, 8, "Shadow Labyrinth (heroic)", 2000, true)
 
 	-- The Sha'tar
 	-- TODO: Add turn-in quests (and add quest to questdb.lua)
 	RPH_AddInstance(935, 4, 8, "The Mechanar", 1300, false)
 	RPH_AddInstance(935, 4, 8, "The Botanica", 2400, false)
 	RPH_AddInstance(935, 4, 8, "The Arcatraz", 1900, false)
-	RPH_AddInstance(935, 4, 8, "The Mechanar", 2200, true)
-	RPH_AddInstance(935, 4, 8, "The Botanica", 2400, true)
-	RPH_AddInstance(935, 4, 8, "The Arcatraz", 2700, true)
+	RPH_AddInstance(935, 4, 8, "The Mechanar (heroic)", 2200, true)
+	RPH_AddInstance(935, 4, 8, "The Botanica (heroic)", 2400, true)
+	RPH_AddInstance(935, 4, 8, "The Arcatraz (heroic)", 2700, true)
 
 	-- Keepers of Time
 	RPH_AddInstance(989, 4, 8, "Old Hillsbrad Foothills", 1300, false)
 	RPH_AddInstance(989, 4, 8, "Black Morass", 1200, false)
-	RPH_AddInstance(989, 4, 8, "Old Hillsbrad Foothills", 2800, true)
-	RPH_AddInstance(989, 4, 8, "Black Morass", 1900, true)
+	RPH_AddInstance(989, 4, 8, "Old Hillsbrad Foothills (heroic)", 2800, true)
+	RPH_AddInstance(989, 4, 8, "Black Morass (heroic)", 1900, true)
 	
 ---	local preGC = collectgarbage("count"
 	collectgarbage("collect")
