@@ -332,7 +332,7 @@ function RPH_InitEnFactionGains()
 	RPH_AddMob(349, 4, 6, "Syndicate Rogue, Watchman and Shadow Mage", 5, zone.Hillsbrad_Foothills)
 	RPH_AddMob(349, 4, 6, "Syndicate Highwayman, Mercenary, Pathstalker, Conjuror, Thief, Prowler and Magus", 5, zone.Arathi_Highlands)
 	RPH_AddQuest(349, 4, 5, "Syndicate Emblems (Rogue)", 100, {[17124] = 1})
-	RPH_AddQuest(349, 4, 8, 8249, 50, {[16885] = 5})
+	RPH_AddQuest(349, 4, 8, 8249, 75, {[16885] = 5})
 
 	-- Shen'dralar
 	RPH_AddQuest(809, 4, 8, 7485, 500, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1})
