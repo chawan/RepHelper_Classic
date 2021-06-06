@@ -467,7 +467,9 @@ function RPH_InitEnFactionGains()
 	
 	-- Cenarion Expedition
 	-- TODO: Add turn-in quests / Dailies / Dungeons (and add quest to questdb.lua)
-	RPH_AddQuest(942, 4, 8, "Identify Plant Parts", 250, {["Unidentified Plant Parts"] = 10})
+	RPH_AddQuest(942, 4, 5, "Identify Plant Parts", 250, {["Unidentified Plant Parts"] = 10})
+	RPH_AddQuest(942, 4, 8, "Preparing for War", 250, {["Coilfang Armaments"] = 1}, nil, false)
+	RPH_AddQuest(942, 4, 8, "Coilfang Armaments", 75, {["Coilfang Armaments"] = 1}, nil, true)
 
 	-- Lower City
 	-- TODO: Add turn-in quests / Dailies (and add quest to questdb.lua)
